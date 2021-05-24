@@ -16,6 +16,7 @@ const signIn = () => {
 
 const signOut = () => {
     signInButtonElement.removeAttribute('hidden');
+    signUpLinkElement.removeAttribute('hidden');
 
     // Set Attribute for the element
     signOutButtonElement.setAttribute('hidden','true');
