@@ -1,107 +1,149 @@
+import('./index_read.js').then(module => {
+    console.log(module.loadNews())
+})
 
+//  Sign- in with Google Authentication
 const signIn = () => {
-    console.log("Sign In Button Connected");
-    // Remove Hidden for Sign In and Sign Up button
-    signInButtonElement.setAttribute('hidden','true');
-    signUpLinkElement.setAttribute('hidden','true');
-    // set content to the element
-    userPicElement.textContent = "Duong Anh Vu";
-    userNameElement.textContent = "User Placeholder";
-    // Replace with image, user-name and signout button
-    signOutButtonElement.removeAttribute('hidden','false');
-    userPicElement.removeAttribute('hidden','false');
-    userNameElement.removeAttribute('hidden','false');
+    // Sign in Firebase using popup auth and Google as the identity provider
+    let provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider);
+};
 
+// Sign-Out
+const signOut = () => {
+    // Sign out of Firebase.
+    firebase.auth().signOut();
 }
 
-const signOut = () => {
-    signInButtonElement.removeAttribute('hidden');
-    signUpLinkElement.removeAttribute('hidden');
+// Initiate Firebase Authentication
 
-    // Set Attribute for the element
-    signOutButtonElement.setAttribute('hidden','true');
-    userPicElement.setAttribute('hidden','true');
-    userNameElement.setAttribute('hidden','true');
+const initFirebaseAuth = () => {
+    // Listen to auth state changes
+    firebase.auth().onAuthStateChanged(authStateObserver);
+}
+    
+// Getting the user's profile Pic URL
+const getProfilePicUrl = () => {
+    return firebase.auth().currentUser.photoURL || '../testData/img/mario.jpeg';
+}
+// Getting the user display name
+const getUserName = () => {
+    return firebase.auth().currentUser.displayName;
+}
 
+// Checking whether the user is signed in or out
+const isUserSignIn = () => {
+    return !!firebase.auth().currentUser;
+}
+
+// Checking Whether User or Admin
+const isAdmin = () => {
+    // Getting user information
+    let user = firebase.auth().currentUser;
+
+    // Check user Provider-specific UID:
+    const admin_id_list = ['Ae0bs8TZrTh8TH8Oqkm7JKgCgDb2'];
+
+    for(var i = 0; i < admin_id_list.length; i++) {
+        if (admin_id_list[i] == user.uid) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
+// Changing size of the image
+// Adds a size to Google Profile pics URLs.
+function addSizeToGoogleProfilePic(url) {
+    if (url.indexOf('googleusercontent.com') !== -1 && url.indexOf('?') === -1) {
+      return url + '?sz=150';
+    }
+    return url;
+  }
+
+// Trigger when the auth state changes
+const authStateObserver = (user) => {
+    if (user) {
+        let profilePicURL = getProfilePicUrl();
+        let userName = getUserName();
+
+        // Setting the profile and image to the element
+        userNameElement.textContent = userName;
+        userImgElement.setAttribute('src',`${addSizeToGoogleProfilePic(profilePicURL)}`);
+
+        
+        // Remove Hidden for Sign In and Sign Up button
+        signInButtonElement.setAttribute('hidden','true');
+        signUpLinkElement.setAttribute('hidden','true');
+
+        // Replace with image, user-name and signout button
+        signOutButtonElement.removeAttribute('hidden','false');
+        userNameElement.removeAttribute('hidden','false');
+        userImgElement.removeAttribute('hidden','false');
+        // Checking whether the user is admin or user
+        if (isAdmin()) {
+            dropDownMenuElement[0].removeAttribute('hidden','false');
+        } 
+
+    } else {
+        signInButtonElement.removeAttribute('hidden');
+        signUpLinkElement.removeAttribute('hidden');
+
+        // Set Attribute for the element
+        signOutButtonElement.setAttribute('hidden','true');
+        userNameElement.setAttribute('hidden','true');
+        userImgElement.setAttribute('hidden','true');
+        dropDownMenuElement[0].setAttribute('hidden','true');
+    }
+}
+
+
+// Checks that the Firebase SDK has been correctly setup and configured.
+const checkSetup = () => {
+    if (!window.firebase || !(firebase.app instanceof Function) || !firebase.app().options) {
+        window.alert('You have not configured and imported the Firebase SDK. ' +
+        'Make sure you go through the codelab setup instructions and make ' +
+        'sure you are running the codelab using `firebase serve`');
+    }
+}
+
+// Checking the Firebase SDK
+checkSetup();
+
+// Initialize Firebase
+initFirebaseAuth();
+
+// Creating a function to show the dropdown content
+const showDropDownContent = () => {
+    // // Access to attribute
+    if(dropDownContentElement[0].getAttribute('hidden') == 'true' ) {
+        dropDownContentElement[0].removeAttribute('hidden','false')
+    } 
+    else {
+        dropDownContentElement[0].setAttribute('hidden','true')
+    }
 }
 
 const signUp = () => {
     console.log("Sign Up Anchor Connected");
 }
 
-// Creating the news template
-const news_template =
-    '<div class= "news-container">' +
-        '<div class= "news-title"></div>' +
-        '<div class= "news-body"></div>' +
-    '</div>';
-
-// Creating a function to add news to the template
-const addNewsTestData = (id) => {
-    // Creating a container
-    // const container = document.createElement('div');
-    // container.innerHTML = news_template;
-    // const div = container.firstChild;
-    // div.setAttribute('id',id);
-
-    
-    // newsListElement.appendChild(div);
-    // console.log(newsListElement);
-    // return div;
-}
-
-const displayNews= () => {
-    // var div = addNewsTestData("firstNews");
-
-    // div.querySelector('.news-title').textContent = "first News";
-    // div.querySelector('.news-body').textContent = "This is the first News";
-
-}
-
-// Creating updates templates
-const updates_template = 
-    '<div class = "updates-container">' +
-        '<div class = "updates-title"></div>' +
-        '<div class= "updates-body"></div>' +
-    '</div>';
-
-// Create a function to add updates to the list
-const addUpdatesTestData = (id) => {
-    // const container = document.createElement('div');
-    // container.innerHTML = updates_template;
-    // const div = container.firstChild;
-    // div.setAttribute('id',id);
-
-    // updatesListElement.appendChild(div);
-    // console.log(updatesListElement);
-    // return div
-}
-
-
-// Create a function to display test updates
-const displayUpdates = () => {
-    // var div = addUpdatesTestData("first Updates");
-
-    // div.querySelector('.updates-title').textContent = "first Updates";
-    // div.querySelector('.updates-body').textContent = "This is the first Updates";
-    
-}
 
 // Connect to signIn button
 const signInButtonElement = document.getElementById('signIn');
 const signUpLinkElement = document.getElementById('signUpLink');
 const signUpLink = document.getElementById("signUpLink");
-const userPicElement = document.getElementById("user-pic");
 const userNameElement = document.getElementById("user-name");
 const signOutButtonElement = document.getElementById("sign-out");
-const newsListElement = document.getElementById("news");
-const updatesListElement = document.getElementById("updates");
-// const addNewsButtonElement = document.getElementById("add-news-test-data");
-// const addUpdatesButtonElement = document.getElementById("add-updates-test-data");
+const userImgElement = document.getElementById("userImage");
+const dropDownMenuElement = document.getElementsByClassName("dropDownMenu"); 
+const dropDownContentElement = document.getElementsByClassName("dropdown-content");
+
 
 // Adding an event listener to interact with the button
 signInButtonElement.addEventListener('click', signIn);
 signUpLink.addEventListener('click',signUp);
 signOutButtonElement.addEventListener('click',signOut);
-// addNewsButtonElement.addEventListener('click',displayNews);
-// addUpdatesButtonElement.addEventListener('click',displayUpdates);
+dropDownMenuElement[0].addEventListener('click',showDropDownContent);

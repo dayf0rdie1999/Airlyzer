@@ -1,0 +1,57 @@
+.create-news-content {
+    background-color: rgb(243, 237, 237);
+}
+
+.create-header {
+    padding-left: 32px;
+    padding-top: 16px;
+}
+
+#created-news{
+    padding-top: 16px;
+    padding-bottom: 16px;
+    text-align: center;
+}
+
+.title {
+    padding-bottom: 16px;
+}
+
+.snippet {
+    padding-bottom: 16px;
+}
+
+.news-body {
+    padding-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.submit-button {
+    text-align: center;
+    padding-bottom: 16px;
+}
+
+#submit {
+    background-color: green;
+    color: white;
+    font-size: large;
+    text-align: center;
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 15px;
+    font-style: normal;
+}
+
+/* Updates Format to database */
+.update-link {
+    padding-bottom: 16px;
+}
+
+.updates-body {
+    display: flex;
+    padding-bottom: 16px;
+    align-items: center;
+    justify-content: center;
+}

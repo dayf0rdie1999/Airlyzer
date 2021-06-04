@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/f6a55e21f3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles/styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./partials/header.ejs') %>
+
+    <%- include('./partials/nav.ejs') %>
+
+    <div id= "about-body">
+        <h3>Meet The Team</h3>
+    </div>
+    
+    <!-- Body -->
+    <!-- Script to provide format within the html for each team member -->
+    <script>
+        import('./testData/data.js')
+        .then((module)=> {
+            // Create two random member
+            let firstMember = new module.Member(1,"Vu","./testData/img/Vu.jpg","He is currently an Aerospace Engineer student at Embry-Riddle Aeronautical University with Computer Science minor, he is responsible for the first layout design of the website");
+            // Putting them in a list
+            let secondMember = new module.Member(2,"Mario","./testData/img/mario.jpeg","He is the perfect test subject figure");
+            
+            // Putting the member in the list
+            let memberList = [firstMember, secondMember];
+
+            // Loop through the list and format the content 
+            memberList.forEach((member)=> {
+                // Create a div represented as a row
+                const row = document.createElement("div");
+                row.setAttribute("class","row");
+
+                // Create two column within the the row
+                const columnLeft = document.createElement("div");
+                columnLeft.setAttribute("class","column left");
+
+                const columnRight = document.createElement("div");
+                columnRight.setAttribute("class","column right");
+
+                // Create a div to represent team-information
+                const teamInformation = document.createElement("div");
+                teamInformation.setAttribute("class","team-information");
+
+                // Create a div to represent team-name-image
+                const teamNameImage = document.createElement("div");
+                teamNameImage.setAttribute("class","team-name-image");
+
+                // Add team-information to column left
+                columnLeft.appendChild(teamInformation);
+
+                // Add team-name-image to column right
+                columnRight.appendChild(teamNameImage);
+
+                // Adding template for teamInformation;
+                const memberInformation_template = 
+                    `<p class = "member-task"> ${member.task} </p>`
+
+                teamInformation.innerHTML = memberInformation_template;
+
+                // Adding template for team-name-image
+                const teamNameImage_template = 
+                    `<h4 class="member-name"> ${member.name} </h4>` +
+                    `<img src= "${member.img}" class= "member-image"> </img>`
+
+                teamNameImage.innerHTML = teamNameImage_template;
+                row.setAttribute("id",member.id);
+
+                // Adding column left and column right to the row
+                row.appendChild(columnLeft);
+                row.appendChild(columnRight);
+
+                // Get access to the body
+                const aboutBody = document.getElementById("about-body");
+
+                aboutBody.appendChild(row);
+            })
+        });
+    </script>
+
+    <!-- Footer -->
+    <%- include('./partials/footer.ejs') %>
+
+    <%- include('./partials/firebase.ejs') %>
+</body>
+</html>

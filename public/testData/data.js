@@ -1,18 +1,32 @@
-const user = {
-    id: 1,
-    name: "Mario Luigi",
-    image_dir: '.\margio.jpeg',
+export class User {
+    constructor(name, img_dir) {
+        this.name = name;
+        this.img_dir = img_dir;
+    }
+};
+
+export class News {
+    constructor(id,title,snippet,body){
+        this.id = id;
+        this.title = title;
+        this.snippet = snippet;
+        this.body = body;
+    }
 }
 
-const first_news = {
-    id: 1,
-    title: "the first news",
-    snippet: "This is the first news of the website",
-    body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt doloremque neque placeat cupiditate perspiciatis quibusdam? Eos eius maiores, nobis animi accusantium cumque dolores beatae dolorum fugit natus deleniti incidunt ducimus?",
-    author: "Member Name",
+export class Updates {
+    constructor(id,content,link){
+        this.id = id;
+        this.content = content;
+        this.link = link
+    }
 }
-const second_news = {
-    id: 2,
-    title: "the second news",
-    
+
+export class Member {
+    constructor(id,name,img,task) {
+        this.id = id;
+        this.name = name;
+        this.img = img;
+        this.task = task;
+    }
 }

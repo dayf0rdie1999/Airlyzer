@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/styles.css">
+    <script src="https://kit.fontawesome.com/f6a55e21f3.js" crossorigin="anonymous"></script>
     <title class="title">Airlyzer | Home</title>
 </head>
 <body>
@@ -13,47 +14,62 @@
         <h2>Airlyzer</h2>
         <div>
             <div class = "after-sign-in">
-                <div hidden id= "user-pic"></div>
+                <button hidden id= "sign-out" style = "color: white; font-family: Times New Roman">Sign Out</button>
                 <div hidden id= "user-name"></div>
-                <button hidden id= "sign-out">Sign Out</button>
+                <div class="frame">
+                    <img hidden id="userImage" src="./testData/img/mario.jpeg" alt="Default Image">
+                </div>
+                <div hidden class="dropDownMenu">
+                    <button class="dropbtn">
+                        <i class= "fas fa-bars"></i>
+                    </button>                
+                </div>
             </div>
-            <button id="signIn">Sign In</button>
-            <a href="" id="signUpLink">Sign Up</a>
+            <div class="before-sign-in">
+                <button id="signIn" style = "color: white; font-family: Times New Roman;">Sign In</button>
+                <a href="" id="signUpLink" style = "color: white; text-decoration: none; ">Sign Up</a>
+            </div>
         </div>
     </div>
 
     <!-- Navigation -->
+    <div hidden= 'true' class="dropdown-content">
+        <div>
+            <a href="/create-news">Create News</a>
+        </div>
+        <div>
+            <a href="/create-updates">Create Updates</a>
+        </div>
+    </div>
+    
     <div class="nav">
         <ul>
-            <li><a href="">Home</a></li>
-            <li><a href="">About</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
         </ul>
     </div>
 
     <!-- Body -->
     <div class="row">
         <div class="column left">
-            <div style = "display: flex; height:min-content;">
+            <div class = "news-header" style = "display: flex; height:min-content;">
                 <h3>News</h3>
-                <button id= "add-news-test-data">Add News</button>
             </div>
             <div id= "news">
             </div>
         </div>
         <div class="column right">
-            <div style = "display: flex">
+            <div class= "update-header" style = "display: flex">
                 <h3>Updates</h3>
-                <button id = "add-updates-test-data">Add Updates</button>
             </div>
-            <div id="updates">
-            </div>
+            <ul id="updates">
+            </ul>
         </div>
     </div>
 
     <!-- Footer -->
     <div class="footer">
         <p>Airlyzer is a website that allow Aeronautics Engineer to analyze their designed aircraft faster. It includes calculations that determine the lift, drag, performance and stability of the aircraft.</p>
-
         <p class="copyright">Copyright 2021 by Duong Anh Vu</p>
     </div>
 
