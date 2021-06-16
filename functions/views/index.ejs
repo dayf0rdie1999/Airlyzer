@@ -1,0 +1,36 @@
+<%- include('./partials/html-declared.ejs') %>
+<body>
+    <!-- Header -->
+    <%- include('./partials/header.ejs') %>
+
+    <!-- Navigation -->
+    <%- include('./partials/nav.ejs') %>
+
+    <!-- Body -->
+    <div class="row">
+        <div class="column left">
+            <div class = "news-header" style = "display: flex; height:min-content;">
+                <h3>News</h3>
+            </div>
+            <div id= "news">
+            </div>
+        </div>
+        <div class="column right">
+            <div class= "update-header" style = "display: flex">
+                <h3>Updates</h3>
+            </div>
+            <div id="updates">
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <%- include('./partials/footer.ejs') %>
+
+    <%- include('./partials/firebase.ejs') %>
+
+    <script src="scripts/logIn.js"></script>
+    <script src="scripts/main.js"></script>
+
+</body>
+</html>

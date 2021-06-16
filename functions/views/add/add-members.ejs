@@ -1,0 +1,98 @@
+<%- include('../partials/html-declared.ejs') %>
+<body>
+    <%- include('../partials/header.ejs') %>
+
+    <%- include('../partials/nav.ejs') %>
+    
+    <!-- Creating the body to create news -->
+    <div class = "add-members-content">
+        <h3 class = "add-member-header">Add a Member</h3>
+        <form id= "add-members">
+
+            <div class="member_name">
+                <label for="name">Member Name:</label>
+                <input type="text" id="name" name= "name"><br>
+            </div>
+            <div class="member-info">
+                <label for="info">Member Brief Information:</label>
+                <textarea name="info" id="info" cols="30" rows="10"></textarea><br>
+            </div>
+            <div class="member-container">
+                <label for="mediaCapture">Image:</label>
+                <div class="member-image">
+                    <input type="file" name="mediaCapture" id="mediaCapture" accept = "img/*" capture="camera">
+                </div>
+            </div>
+        </form>
+
+        <div class="submit-button">
+            <button id='submit' onclick="saveMembers()">Submit</button>
+        </div>
+    </div>
+
+    <script>
+        // Connect to the mediaCapture and make it listen to the event
+        let mediaCapture = document.getElementById('mediaCapture');
+        let add_members = document.getElementById('add-members');
+
+        let img_file = null;
+
+        mediaCapture.addEventListener('change',onMediaFileSelected);
+        
+        // create the function to response when the mediaCapture changes
+        function onMediaFileSelected(event) {
+
+            event.preventDefault();
+
+            // Create file to hold the file as a variable
+            let file = event.target.files[0];
+            
+
+            // Check if the file is an image
+            if (!file.type.match('image.*')) {
+                var data = {
+                    message: 'You can only share images',
+                    timeout: 2000
+                };
+                return;
+            }
+
+            // Check if the user is signed in and is admin
+            if (isUserSignIn() && isAdmin()) {
+                img_file = file;
+            }
+        }
+
+        function saveMembers() {
+
+            // create a file path with the image directory
+            var filePath = firebase.auth().currentUser.uid + "/" + img_file.name;
+
+            // Adding the image to the file storage
+            return firebase.storage().ref(filePath).put(img_file).then((fileSnapshot) => {               
+                return fileSnapshot.ref.getDownloadURL().then((url) => {
+                    return firebase.firestore().collection('members').add({
+                        name: document.getElementById('name').value,
+                        info: document.getElementById('info').value,
+                        imageUrl: url,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    }).then(res => {
+                        console.log(res);
+                        // Clear the mediaCapture input file
+                        add_members.reset();
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                })
+            }).catch((err) => {
+                console.log('There was an error uploading a file to Cloud Storage:', error);
+            });
+
+        }
+    </script>
+
+    
+    <%- include('../partials/firebase.ejs') %>
+    <script src="scripts/logIn.js"></script>
+</body>
+</html>

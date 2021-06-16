@@ -1,0 +1,86 @@
+<%- include('../partials/html-declared.ejs') %>
+<body>
+    <%- include('../partials/header.ejs') %>
+
+    <%- include('../partials/nav.ejs') %>
+
+    <!-- Body -->
+    <div class="body">
+        <div class="signIn-body">
+
+            <div id="signIn-body-header">
+                <h3 id= "signIn-body-header-content">Sign In</h3>
+            </div>
+    
+            <div id="signIn-body-input">
+                <form id="signIn-form">
+                    <div class="email-input">
+                        <label for="email">Email:</label>
+                        <input type="text" name="email" id="email">
+                    </div>
+                    <div class="password-input">
+                        <label for="password">Password:</label>
+                        <input type="password" name="password" id="password">
+                    </div>
+                </form>
+            </div>
+    
+            <div id="signIn-body-buttons">
+                <div id="signIn-submit-container">
+                    <button id="signIn-submit-button">Sign In</button>
+                </div>
+    
+                <div id="google-signIn-container">
+                    <button id="google-signIn-button">Google Sign In</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+
+    <!-- Footer -->
+    <%- include('../partials/footer.ejs') %>
+
+    <%- include('../partials/firebase.ejs') %>
+
+    <script src="scripts/logIn.js"></script>
+
+    <script>
+        // Sign in with Regular Email And Password
+        function signInEAP() {
+            firebase.auth().signInWithEmailAndPassword(email.value,password.value)
+            .then((userCredentials) => {
+                document.getElementById('signIn-form').reset();
+                window.location.href = '/'
+            })
+            .catch((err) => {
+                var errorCode = err.code;
+                var errorMessage = err.message;
+                
+            })
+        }
+
+        //  Sign- in with Google Authentication
+        function signIn() {
+            // Sign in Firebase using popup auth and Google as the identity provider
+            let provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider).then((result) => {
+                window.location.href = '/';
+            })
+
+        };
+
+
+        const googleSignInButtonElement = document.getElementById('google-signIn-button');
+        const EAPSignInButtonElement = document.getElementById('signIn-submit-button');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        
+        googleSignInButtonElement.addEventListener('click', signIn);
+        EAPSignInButtonElement.addEventListener('click',signInEAP);
+        
+    </script>
+
+</body>
+</html>

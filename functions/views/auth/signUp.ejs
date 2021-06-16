@@ -1,0 +1,148 @@
+<%- include('../partials/html-declared.ejs') %>
+<body>
+    <%- include('../partials/header.ejs') %>
+
+    <%- include('../partials/nav.ejs') %>
+
+    <!-- Body -->
+    <div class="body">
+        <div class="signUp-body">
+            <div id="signUp-body-header">
+                <h3 id= "signUp-body-header-content">Sign Up</h3>
+            </div>
+    
+            <div id="signUp-body-input">
+                <form id="signUp-form">
+
+                    <div class= "userImage-container">
+                        <input hidden="true" id="mediaCapture" type="file" accept="image/*" capture="camera">
+                        <button id="submitImage" title="Add an Image">
+                            <i class="fas fa-images"></i>
+                        </button>
+                    </div>
+
+                    <div class="userName-container">
+                        <label for="userName">UserName:</label>
+                        <input type="text" name="userName" id="userName">
+                    </div>
+
+                    <div class="email-input">
+                        <label for="email">Email:</label>
+                        <input type="text" name="email" id="email">
+                    </div>
+                    <div class="password-input">
+                        <label for="password">Password:</label>
+                        <input type="password" name="password" id="password">
+                    </div>
+                </form>
+            </div>
+    
+            <div id="signUp-body-buttons">
+                <div id="signUp-submit-container">
+                    <button id="signUp-submit-button">Sign Up</button>
+                </div>
+    
+                <div id="google-signIn-container">
+                    <button id="google-signIn-button">Google Sign In</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Footer -->
+    <%- include('../partials/footer.ejs') %>
+
+    <%- include('../partials/firebase.ejs') %>
+
+    <script src="scripts/logIn.js"></script>
+
+    <script>
+        // Create an image file to store the image
+        let img_file = null;
+        
+
+        // Create user with email and password
+        function createUser() {
+            // getting the two input element
+            let email = document.getElementById('email');
+            let password = document.getElementById('password');
+
+            // Create User with Firebase Authentication With Email And Password
+            return firebase.auth().createUserWithEmailAndPassword(email.value,password.value)
+            .then((userCredentials)=> {
+                let user = userCredentials.user;
+                
+                // Create a file path for the image
+                let filePath = user.uid + "/" + img_file.name;
+
+                return firebase.firestore().collection(user.uid).doc('user-container').set({
+                    userName: userNameInputElement.value,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                }).then(res => {
+                    console.log(res);
+                }).catch(err => {
+                    console.log(err);
+                });
+                    
+                window.location.href = '/';
+
+            })
+            .catch((err) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+            });
+        }
+
+        
+        // Sign In With Google
+        function googleSignIn() {
+            let provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider).then((result) => {
+                window.location.href = '/';
+            })
+        }
+
+        // Function to get the image file when the file is selected
+        function onMediaFileSelected(event) {
+            event.preventDefault();
+            var file = event.target.files[0];
+
+            // Check if the file is an image.
+            if (!file.type.match('image.*')) {
+                var data = {
+                message: 'You can only share images',
+                timeout: 2000
+                };
+                // signInSnackbarElement.MaterialSnackbar.showSnackbar(data);
+                return;
+            }
+            
+            img_file = file;
+        }
+
+        // listening to the Sign Up button
+        let signUpButton = document.getElementById('signUp-submit-button');
+        let submitImageButtonElement = document.getElementById('submitImage');
+        let mediaCaptureInputElement = document.getElementById('mediaCapture');
+        let userNameInputElement = document.getElementById('userName');
+        
+        // Accessing to the Sign In button
+        let googleSignInButton = document.getElementById('google-signIn-button');
+
+        // Addeventlistener to GoogleSignInButton
+        googleSignInButton.addEventListener('click',googleSignIn);
+
+        submitImageButtonElement.addEventListener('click', function(e) {
+            e.preventDefault();
+            mediaCaptureInputElement.click();
+        });
+
+        mediaCaptureInputElement.addEventListener('change', onMediaFileSelected);
+
+        signUpButton.addEventListener('click', createUser);
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+.body{
+    border-bottom: 1px solid black;
+}
+.signUp-body,.signIn-body{
+    margin-left: 64px;
+    margin-right: 64px;
+    margin-top: 16px;
+    padding-top: 16px;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+    background-color: rgb(243, 237, 237);
+}
+
+#signUp-body-header,#signIn-body-header{
+    text-align: center;
+}
+
+#signUp-body-header-content,#signIn-body-header-content{
+    text-decoration: underline;
+}
+
+#signUp-body-input,#signIn-body-input{
+    padding-top: 16px;
+    text-align: center;
+}
+
+.email-input,.password-input,.userName-container{
+    padding-top:16px;
+}
+
+#submitImage {
+    font-size: 64px;
+    border-radius: 8px;
+}
+
+#signUp-body-buttons,#signIn-body-buttons{
+    display: flex;
+    padding-top: 32px;
+    align-items: center;
+    justify-content: center;
+}
+
+#signUp-submit-container, #google-signIn-container,#signIn-submit-container{
+    padding-right: 32px;
+}
+
+#signUp-submit-button, #google-signIn-button, #signIn-submit-button  {
+    padding: 8px 8px;
+    background-color: green;
+    color: white;
+    border-radius: 8px;
+}
+
+
+
+
+

@@ -1,0 +1,137 @@
+<%- include('../partials/html-declared.ejs') %>
+<body>
+    <%- include('../partials/header.ejs') %>
+
+    <%- include('../partials/nav.ejs') %>
+
+    <!-- Format New Detail Body Page -->
+    <div class="new-detail-container">
+        <div class="del-title-author-timestamp-container">
+            <div class="title-author-timestamp-container">
+                <h2 id="new-title" style = "font-style: italic"></h2>
+    
+                <div class="author-timestamp-container">
+                    <div>
+                        <p id= "author"></p>
+                    </div>
+                    <p id="timestamp"></p>
+                </div>
+            </div>
+
+            <div class="edit-delete-container">
+                <button id="delete-new" >
+                    <i class="fas fa-trash-alt" id="icon-del-new"></i>
+                </button>
+                
+                <button id= "edit-new">
+                    <i class= "fas fa-edit" id="icon-edit-new"></i>
+                </button>
+            </div>
+
+        </div>
+
+        <div class="img-container">
+            <img id="new-img" src="" style="width: 256px; height: auto">
+            <p id= "img-ref"></p>
+        </div>
+
+        <div class="new-content">
+            <p id= "content"></p>
+        </div>
+    </div>
+    
+    <%- include('../partials/comment.ejs') %>
+
+    
+    <%- include('../partials/footer.ejs') %>
+
+    <!-- Firebase SDK script and logIn.js script -->
+    <%- include('../partials/firebase.ejs') %>
+    <script src="../scripts/logIn.js"></script>
+    
+    
+    <script>
+        // Access to the button
+        const delete_new_button = document.getElementById('delete-new');
+        const edit_new_button = document.getElementById('edit-new');
+
+
+        // Listen when it is being clicked
+        delete_new_button.addEventListener('click',deleteNew);
+        edit_new_button.addEventListener('click',editNew);
+
+        // get the path name
+        let pathName = window.location.pathname;
+
+        // Split the path to obtain the id
+        let pathArray = pathName.split("/");
+
+        // Obtaining the Id
+        let new_id = pathArray[2];
+
+        function editNew() {
+
+            // Redirect to page with this content id
+            window.location.href = `../edit-new/${new_id}`;
+
+        }
+
+        // Create a function to delete the article and redirect to home
+        function deleteNew(){
+
+            // Deleting the image 
+            return firebase.firestore().collection("news").doc(new_id).get().then(doc => {
+                if (doc.data().newsImageURL) {
+                    let imageFilePath = doc.data().imageFilePath;
+
+                    // Deleting the image file
+                    return firebase.storage().ref(imageFilePath).delete(). then(res => {
+                        return firebase.firestore().collection("news").doc(new_id).delete()
+                            .then((result) => {
+                                window.location.href = '/';
+                            })
+                            .catch(err => {
+                                console.log("Error removing document: ", err);
+                            })
+                        })
+                    }
+                }) 
+        }
+
+        // Access to the firestore to retrieve the data with the specific ID
+        function loadNew() {
+
+            firebase.firestore().collection("news").doc(new_id).get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        document.getElementById("new-title").textContent = doc.data().title;
+                        document.getElementById("author").textContent = doc.data().name;
+
+                        // Convert the firebase timestamp to date and to string
+                        var date_str = doc.data().timestamp.toDate().toString();
+
+                        // Split the string
+                        let date_str_array = date_str.split('(');
+
+                        document.getElementById("timestamp").textContent = date_str_array[0];
+                        document.getElementById("new-img").setAttribute('src',doc.data().newsImageURL);
+                        document.getElementById("img-ref").textContent = doc.data().ImageRef;
+                        document.getElementById("content").textContent = doc.data().content;
+                    } else {
+                        console.log("Can't find the file")
+                    }
+                }).catch(err => {
+                    console.log(err)
+                })
+        }
+
+        loadNew();
+
+    </script>
+
+    <script src= "../scripts/add_data/add_comment.js"></script>
+    <script src="../scripts/read_data/read_comment.js"></script>
+
+
+</body>
+</html>

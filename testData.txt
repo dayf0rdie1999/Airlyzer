@@ -12,3 +12,18 @@ they are people living in the north of the European, they usually lives in clan 
 
 vikings
 This page will absolutely do nothing and shows nothing but 404.html error page
+
+
+The Team Test Data
+Vu
+
+He is currently an Aerospace Engineer student at Embry-Riddle Aeronautical University with Computer Science minor, he is responsible for the first layout design of the website
+
+
+Duong Anh Vu
+A student at Embry-Riddle Aeronautical University
+He is currently an Aerospace Engineer student at Embry-Riddle Aeronautical University with Computer Science minor, he is responsible for the first layout design of the website. 
+
+His first design aircraft is the Blood Eagle F9001, which has the center of gravity 64% forward of the mean geometric cord of the aircraft. The aircraft was proven to be incapable of flying due to the extreme forward CG.
+
+

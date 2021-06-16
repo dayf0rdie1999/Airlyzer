@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/f6a55e21f3.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="styles/styles.css">
-    <link rel="stylesheet" href="styles/create_styles.css">
-    <title>Document</title>
-</head>
+<%- include('../partials/html-declared.ejs') %>
 <body>
-    <%- include('./partials/header.ejs') %>
+    <%- include('../partials/header.ejs') %>
 
-    <%- include('./partials/nav.ejs') %>
+    <%- include('../partials/nav.ejs') %>
 
     <!-- Creating the body to create news -->
     <div class="create-news-content">
@@ -54,6 +44,8 @@
     </script>
 
     <!-- Firebase SDK script and main.js script -->
-    <%- include('./partials/firebase.ejs') %>
+    <%- include('../partials/firebase.ejs') %>
+    <script src="scripts/logIn.js"></script>
+    
 </body>
 </html>

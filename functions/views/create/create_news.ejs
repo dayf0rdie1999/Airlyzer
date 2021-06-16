@@ -1,0 +1,113 @@
+<%- include('../partials/html-declared.ejs') %>
+<body>
+    <%- include('../partials/header.ejs') %>
+
+    <%- include('../partials/nav.ejs') %>
+
+    <!-- Creating the body to create news -->
+    <div class="create-news-content">
+        <h3 class = "create-header">Create a Blog</h3>
+        <form id= "created-news">
+            <div class="title">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name= "title"><br>
+            </div>
+            <div class="snippet">
+                <label for="snippet">Snippet:</label>
+                <input type="text" name="snippet" id="snippet"><br>
+            </div>
+            <div class="news-body">
+                <label for="body">Body:</label>
+                <textarea name="body" id="news-body" cols="30" rows="10"></textarea>
+            </div>
+            
+            <div class = "news-img-container">
+                <label for="image">Image:</label>
+                <div>
+                    <input type="file" name="newsImgCapture" id="newsImgCapture" accept= "image/*">
+                </div>
+            </div>
+
+            <div hidden class="img-ref">
+                <label for="imageRef">Image Reference:</label>
+                <input type="text" name= "imageRef" id= "imageRef">
+            </div>
+
+            <!-- <label for="img">Select Image:</label>
+            <input type="file" name="img" id="img" accept="image/*"> -->
+        </form>
+        <div class="submit-button">
+            <button id='submit' onclick="saveNews()">Submit</button>
+        </div>
+    </div>
+    
+    <script>
+        // Access to the element
+        let newsImgCapture = document.getElementById('newsImgCapture')
+
+        let img_file = null;
+        // AddEvent when there is changes
+        newsImgCapture.addEventListener('change',onMediaFileSelected)
+
+        // Function to receive the event and checking if it is an image
+        function onMediaFileSelected(event) {
+
+                event.preventDefault();
+
+                // Create file to hold the file as a variable
+                let file = event.target.files[0];
+
+                // Check if the file is an image
+                if (!file.type.match('image.*')) {
+                    var data = {
+                        message: 'You can only share images',
+                        timeout: 2000
+                    };
+                    return;
+                }
+
+                // Check if the user is signed in and is admin
+                if (isUserSignIn() && isAdmin()) {
+                    img_file = file;
+                    document.getElementsByClassName('img-ref')[0].removeAttribute('hidden','false');
+                }
+            }
+
+        function saveNews() {
+
+            // Save the image to the storage with the id
+            let filePath = firebase.auth().currentUser.uid + '/' + img_file.name;
+
+            return firebase.storage().ref(filePath).put(img_file).then(fileSnapshot => {
+                return fileSnapshot.ref.getDownloadURL().then((url) => {
+
+                    // Add a new message entry to the database
+                    return firebase.firestore().collection('news').add({
+
+                        name: firebase.auth().currentUser.displayName,
+                        title: document.getElementById('title').value,
+                        snippet: document.getElementById('snippet').value,
+                        content: document.getElementById('news-body').value,
+                        newsImageURL: url,
+                        imageFilePath: filePath,
+                        ImageRef: document.getElementById('imageRef').value,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    })
+                    .then((result) => {
+                        document.getElementById('created-news').reset();
+                    })
+                    .catch((err) => {
+                        console.error('Error writing new message to database', err);
+                    });
+                    
+                })
+            }) 
+        }
+    </script>
+
+    <!-- Firebase SDK script and main.js script -->
+    <%- include('../partials/firebase.ejs') %>
+    <script src="scripts/logIn.js"></script>
+    
+</body>
+</html>

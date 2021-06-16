@@ -1,0 +1,167 @@
+<%- include('../partials/html-declared.ejs') %>
+
+<body>
+    <%- include('../partials/header.ejs') %>
+
+    <%- include('../partials/nav.ejs') %>
+
+    <!-- Creating the body to create news -->
+    <div class="edit-news-content">
+        <h3 class = "edit-header">Edit a New</h3>
+        <form id= "edited-news">
+            <div class="edited-title">
+                <label for="edited-title">Title:</label>
+                <input type="text" id="edited-title" name= "edited-title"><br>
+            </div>
+            <div class="edited-snippet">
+                <label for="edited-snippet">Snippet:</label>
+                <input type="text" name="edited-snippet" id="edited-snippet"><br>
+            </div>
+
+            <div class="edited-news-body">
+                <label for="edited-body">Body:</label>
+                <textarea name="edited-body" id="edited-news-body" cols="30" rows="10"></textarea>
+            </div>
+            
+
+            <div hidden class= "existed-new-img-container">
+                <img id="existed-new-img">
+            </div>
+
+            <div  class = "edited-news-img-container">
+                <label hidden id= "label-edited-image" for="edited-image">Replace Image:</label>
+                <div>
+                    <input hidden type="file" name="edited-newsImgCapture" id="edited-newsImgCapture" accept= "image/*">
+                </div>
+            </div>
+
+            <div hidden class="edited-img-ref">
+                <label for="edited-imageRef">Image Reference:</label>
+                <input type="text" name= "edited-imageRef" id= "edited-imageRef">
+            </div>
+
+        </form>
+        <div class="submit-button">
+            <button id='submit' onclick="updateNews()">Update</button>
+        </div>
+    </div>
+
+    <%- include('../partials/footer.ejs') %>
+
+    <%- include('../partials/firebase.ejs') %>
+    <script src="../scripts/logIn.js"></script>
+    
+    <script>
+
+        // Access to all the input element
+        let editedTitleInput = document.getElementById('edited-title');
+        let editedSnippetInput = document.getElementById('edited-snippet');
+        let editedNewBodyInput = document.getElementById('edited-news-body');
+        let editedImgRefContainer = document.getElementsByClassName('edited-img-ref')[0];
+        let editedImgRefInput = document.getElementById('edited-imageRef');  
+        let existedNewImgContainer = document.getElementsByClassName('existed-new-img-container')[0];
+        let existedNewImg = document.getElementById('existed-new-img');
+        let labelEditedImage = document.getElementById('label-edited-image');
+        let editedNewsImgCapture = document.getElementById('edited-newsImgCapture');
+    
+
+        // Read the data with the corresponding id and pass those data to the input fields
+        // getting the id from the URL
+        let current_URL = window.location.pathname;
+
+        // Splitting the string
+        let current_URL_array = current_URL.split('/');
+
+        // The new identification id
+        let new_id = current_URL_array[2];
+
+        // create a var to store the image file
+        let img_file = null;
+
+        let previousImageFilePath = null;
+
+
+        // Putting the data in the input value
+        firebase.firestore().collection('news').doc(new_id).get().then((doc) => {
+            if (doc.exists) {
+
+                editedTitleInput.value = doc.data().title;
+                editedSnippetInput.value = doc.data().snippet;
+                editedNewBodyInput.value = doc.data().content;
+                
+
+                if (doc.data().newsImageURL) {
+                    existedNewImgContainer.removeAttribute('hidden','false');
+                    editedImgRefContainer.removeAttribute('hidden','false');
+
+                    existedNewImg.setAttribute('src', doc.data().newsImageURL);
+                    editedImgRefInput.value = doc.data().ImageRef;
+                    previousImageFilePath = doc.data().imageFilePath;
+
+                } 
+            }
+        }).catch(err => {
+            console.log(`The Read Data Error: ${err}`)
+        })
+
+        function loadInputFile() {
+            labelEditedImage.removeAttribute('hidden','false');
+            editedNewsImgCapture.removeAttribute('hidden','false');
+        }
+
+        function updateNews() {
+            firebase.firestore().collection('news').doc(new_id).update('title', editedTitleInput.value);
+            firebase.firestore().collection('news').doc(new_id).update('snippet', editedSnippetInput.value);
+            firebase.firestore().collection('news').doc(new_id).update('content', editedNewBodyInput.value);
+            firebase.firestore().collection('news').doc(new_id).update('ImageRef',editedImgRefInput.value);
+
+            
+            if (img_file) {
+                // Creating a path path
+                var newImageFilePath = firebase.auth().currentUser.uid+"/"+img_file.name;
+
+                // Delete the previous image
+                return firebase.storage().ref(previousImageFilePath).delete().then((res) => {
+                    // Uploading the new image
+                    return firebase.storage().ref(newImageFilePath).put(img_file).then(fileSnapShot => {
+                        // getting the public image URL
+                        return fileSnapShot.ref.getDownloadURL().then(url => {
+                            // updating newsImageURL
+                            return firebase.firestore().collection('news').doc(new_id).update('newsImageURL',url).then((res) => {
+                                firebase.firestore().collection('news').doc(new_id).update('imageFilePath',newImageFilePath);
+                                window.location.href = `../news/${new_id}`
+                            });
+                        })
+                    })
+                });
+            }
+        }
+
+        function onMediaFileSelected(event) {
+            event.preventDefault();
+
+                // Create file to hold the file as a variable
+                let file = event.target.files[0];
+
+                // Check if the file is an image
+                if (!file.type.match('image.*')) {
+                    return;
+                }
+
+                // Check if the user is signed in and is admin
+                if (isUserSignIn() && isAdmin()) {
+                    img_file = file;
+                }
+        }
+
+        // Addeventlistener to the existedNewImg
+        existedNewImg.addEventListener('click',loadInputFile);
+        editedNewsImgCapture.addEventListener('change',onMediaFileSelected);
+       
+
+    </script>
+
+    
+
+</body>
+</html>

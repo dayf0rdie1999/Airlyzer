@@ -1,0 +1,64 @@
+.new-detail-container{
+    padding-left: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid lightgrey;
+}
+
+.new-title {
+    font-style: italic;
+}
+
+.del-title-author-timestamp-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.author-timestamp-container {
+    display: inline-flex;
+}
+
+.author-timestamp-container > div {
+    padding-right: 8px
+}
+
+.img-container {
+    padding-top: 16px;
+    text-align: center;
+}
+
+.img-container > p {
+    text-decoration: underline;
+}
+
+.edit-delete-container {
+    display: inline-flex;
+    padding-left: 36px;
+}
+
+#edit-new{
+    padding-left: 24px;
+    background-color: transparent;
+}
+
+#edit-new #icon-edit-new {
+    font-size: 20px;
+}
+
+#delete-new {
+    background-color: transparent;
+}
+
+#delete-new #icon-del-new {
+    font-size: 20px;
+}
+
+.new-content {
+    padding-top: 16px;
+}
+
+.new-content p{
+    padding-top: 8px;
+    text-indent: 32px;
+}
+

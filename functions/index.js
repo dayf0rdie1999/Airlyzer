@@ -21,24 +21,52 @@ app.get('/about', (req,res) => {
     res.render(`about`);
 });
 
-app.get('/', (req,res) => {
-    res.send("index.html");
-});
+// Response when listen to /edit-new/:id
+app.get('/edit-new/:id', (id,res) => {
+    res.render('edit/edit-new')
+})
+
 
 // Response when listen to /news/:id
 app.get('/news/:id', (req,res) => {
-    res.send("Hello World");
+    res.render('detail/news_detail')
 });
 
 // Response when listen to create-news
 app.get('/create-news', (req,res) => {
-    res.render('create_news');
+    res.render('create/create_news');
 });
 
+// Response when listen to create your aircraft
+app.get('/create-your-aircraft', (req,res) => {
+    res.render('create/create_your_aircraft');
+});
 
 // Response when listen to create-updates
 app.get('/create-updates',(req,res) => {
-    res.render('create-updates');
+    res.render('create/create-updates');
+});
+
+app.get('/add-members', (req,res) => {
+    res.render('add/add-members');
+});
+
+// Response when listen to Sign Up
+app.get('/signUp', (req,res) => {
+    res.render('auth/signUp.ejs');
+});
+
+app.get('/signIn', (req,res) => {
+    res.render('auth/signIn.ejs');
+})
+
+app.get('/determine-derivatives', (req,res) => {
+    res.render('products/Aircraft/cal-con-stra-tapered-plan.ejs');
+});
+
+
+app.get('/', (req,res) => {
+    res.render('index.ejs');
 });
 
 

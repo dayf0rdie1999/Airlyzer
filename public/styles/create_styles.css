@@ -1,27 +1,66 @@
-.create-news-content {
+.create-news-content,.add-members-content,.edit-news-content,.create-your-aircraft {
     background-color: rgb(243, 237, 237);
+    margin: 16px 0;
 }
 
-.create-header {
+.create-aircraft-note {
+    background-color: red;
+    display: inline-flex;
+    align-items: baseline;
+    padding-left: 16px;
+}
+
+.note-content {
+    padding-left: 8px;
+}
+
+.note-header h3,.note-content p {
+    color: white;
+}
+
+.create-header,.add-member-header,.edit-header {
     padding-left: 32px;
     padding-top: 16px;
 }
 
-#created-news{
+#created-aircraft-container{
+    padding-left: 64px;
+    padding-bottom: 16px;
+}
+
+.aircraft-name-container{
+    padding-top: 16px;
+}
+
+.wing-planform-header-container,.horizontal-tail-planform-header-container,.vertical-tail-planform-header-container,.fuselage-header-container {
+    padding-top: 32px;
+}
+
+#wing-planform-properties-container,#horizontal-tail-planform-properties-container,#vertical-tail-planform-properties-container,#fuselage-properties-container{
+    padding-bottom: 8px;
+    border: 1px solid black;
+    padding-left: 8px;
+}
+
+#wing-planform-properties-container div,#horizontal-tail-planform-properties-container div,#vertical-tail-planform-properties-container div,#fuselage-properties-container div {
+    padding-top: 8px;
+}
+
+#created-news, #add-members, #edited-news{
     padding-top: 16px;
     padding-bottom: 16px;
     text-align: center;
 }
 
-.title {
+.title, .member_name, .edited-title {
     padding-bottom: 16px;
 }
 
-.snippet {
+.snippet, .edited-snippet {
     padding-bottom: 16px;
 }
 
-.news-body {
+.news-body, .edited-news-body {
     padding-bottom: 16px;
     display: flex;
     align-items: center;
@@ -49,9 +88,30 @@
     padding-bottom: 16px;
 }
 
-.updates-body {
+.updates-body, .member-info {
     display: flex;
     padding-bottom: 16px;
     align-items: center;
     justify-content: center;
 }
+
+.member-container, .news-img-container, .edited-news-img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 16px;
+}
+
+.member-image, .news-img-container div, .edited-news-img-container div {
+    padding-left: 8px;
+}
+
+/* Format Additional Content for Edit Page */
+#existed-new-img {
+    width: 128px;
+    height: auto;
+}
+
+    
+
+

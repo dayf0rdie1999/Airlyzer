@@ -1,16 +1,72 @@
 <!-- Navigation -->
 <div hidden= 'true' class="dropdown-content">
-    <div>
+    <div hidden='true' class="create-news-anchor">
         <a href="/create-news">Create News</a>
     </div>
-    <div>
+    <div hidden='true' class ="create-updates-anchor">
         <a href="/create-updates">Create Updates</a>
     </div>
+    <div hidden='true' class="create-your-aircraft-anchor">
+        <a href="/create-your-aircraft">Create Aircraft</a>
+    </div>
+    <div hidden='true' class ="add-member-anchor">
+        <a href="/add-members">Add Members</a>
+    </div>
+    
 </div>
 
 <div class="nav">
     <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/about">About</a></li>
+        <li>
+            <div class="products-list">
+                <button id="dropDown-products-list">
+                    <div>
+                        <p>Products</p>
+                        <i class ="fas fa-angle-up"></i>
+                    </div>
+                </button>
+            </div>
+        </li>
     </ul>
 </div>
+
+<div hidden= 'true' class="products-list-nav">
+    <div>
+        <a href="/determine-conventional-straight-tapered-planform">Calculate Conventional Straight-Tapered Planform</a>
+    </div>
+</div>
+
+<script>
+    // Getting the element
+    const dropDownProductsListButton = document.getElementById('dropDown-products-list');
+    const productsListNav = document.getElementsByClassName('products-list-nav')[0];
+    const iconDropDownProductList = document.getElementsByClassName('fas fa-angle-up')[0];
+    dropDownProductsListButton.addEventListener('click',showProductLists)
+
+    const product_style_to_dropDown = 
+    `animation-name: rotation;`+
+    `animation-duration: 0.1s;`+
+    `/* Make the animation fixed after the animations */`+
+    `animation-fill-mode: forwards;`;
+
+    const rev_product_style_to_dropDown =
+    `animation-name: rev-rotation;`+
+    `animation-duration: 0.1s;`+
+    `/* Make the animation fixed after the animations */`+
+    `animation-fill-mode: forwards;`;
+
+    function showProductLists() {
+        if (productsListNav.getAttribute('hidden') == 'true') {
+            iconDropDownProductList.setAttribute('style',`${product_style_to_dropDown}`)
+            productsListNav.removeAttribute('hidden','false');
+
+        } else {
+            iconDropDownProductList.setAttribute('style',`${rev_product_style_to_dropDown}`)
+            productsListNav.setAttribute('hidden','true');
+        }
+        
+    }
+
+</script>
