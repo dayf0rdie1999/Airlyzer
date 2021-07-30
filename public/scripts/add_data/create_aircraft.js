@@ -1,6 +1,7 @@
-
+let firebaseFirestore = firebase.firestore();
 
 function sendAircraftData() {
+
     // Getting user id
     let user_id = firebase.auth().currentUser.uid
 
@@ -8,19 +9,28 @@ function sendAircraftData() {
 
     // Create a local empty list    
     if (aircraftNameNoSpace) {
-        firebase.firestore().collection(user_id).doc("user-info").collection(aircraftNameNoSpace).doc(`${aircraftNameNoSpace}-properties`)
-        .withConverter(aircraftConverter)
-        .set(new Aircraft(convertNum(wingSpanInput.value),convertNum(wingRootChordInput.value),convertNum(wingTipChordInput.value),convertNum(wingSweepLeadingEdge.value),
-        convertNum(horizontalTailSpan.value),convertNum(horizontalTailRootChord.value),convertNum(horizontalTailTipChord.value),convertNum(horizontalTailSweepLeadingEdge.value),
-        convertNum(verticalTailSpan.value),convertNum(verticalTailRootChord.value),convertNum(verticalTailTipChord.value),convertNum(verticalTailSweepLeadingEdge.value),
-        convertNum(fuselageWettedArea.value),convertNum(fuselageVolume.value)))
-        .then(()=> {
-            console.log("Document Successfully Written!")
 
-        })
-        .catch(err => {
-            console.log(err);
-        });
+        firebaseFirestore.collection(user_id).doc("users-info").collection('aircrafts').doc(`${aircraftNameNoSpace}`)
+            .withConverter(aircraftConverter)
+            .set(new Aircraft(convertNum(wingSpanInput.value),convertNum(wingRootChordInput.value),convertNum(wingTipChordInput.value),convertNum(wingSweepLeadingEdge.value),
+            convertNum(horizontalTailSpan.value),convertNum(horizontalTailRootChord.value),convertNum(horizontalTailTipChord.value),convertNum(horizontalTailSweepLeadingEdge.value),
+            convertNum(verticalTailSpan.value),convertNum(verticalTailRootChord.value),convertNum(verticalTailTipChord.value),convertNum(verticalTailSweepLeadingEdge.value),
+            convertNum(fuselageWettedArea.value),convertNum(fuselageVolume.value)))
+            .then(()=> {
+
+                console.log("Document Successfully Written!")
+
+                // Resetting all the forms
+                document.getElementById("wing-planform-properties-form").reset();
+                document.getElementById("horizontal-tail-planform-properties-form").reset();
+                document.getElementById("vertical-tail-planform-properties-form").reset();
+                document.getElementById("fuselage-properties-form").reset();
+
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
     } else {
         aircraftNameInput.setAttribute('style','background-color: red');
     }
@@ -33,6 +43,18 @@ function convertNum(val) {
 
 function removeSpaces(aircraftName) {
     return aircraftName.replace(/ /g,"");
+}
+
+function loadDifferentWayToDesignAircraft(){
+    if (selectWaysDesignAircraft.options[selectWaysDesignAircraft.selectedIndex].value == "conventional") {
+
+        createCustomizedAircraftContainer.setAttribute("hidden",'true')
+        createConventionalAircraftContainer.removeAttribute("hidden",'false')
+    } else if (selectWaysDesignAircraft.options[selectWaysDesignAircraft.selectedIndex].value == "customizable") {
+
+        createCustomizedAircraftContainer.removeAttribute("hidden",'false')
+        createConventionalAircraftContainer.setAttribute("hidden",'true')
+    }
 }
 
 // Getting all the input element
@@ -53,6 +75,15 @@ const fuselageWettedArea = document.getElementById('fuselage-wetted-area');
 const fuselageVolume = document.getElementById('fuselage-volume');
 const saveYourAircraftButton = document.getElementById('submit');
 
+// Get access to the container of the input
+const createConventionalAircraftContainer = document.getElementsByClassName("create-your-aircraft")[0];
+const createCustomizedAircraftContainer = document.getElementsByClassName("create-your-custom-aircraft")[0];
+
+// Access to the select
+// const selectWaysDesignAircraft = document.getElementById("select-ways-aircraft");
+
+
 
 // Uploading the data when the button is clicked
 saveYourAircraftButton.addEventListener('click',sendAircraftData);
+// selectWaysDesignAircraft.addEventListener('change',loadDifferentWayToDesignAircraft);

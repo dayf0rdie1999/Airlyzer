@@ -14,155 +14,422 @@
         </div>
     </div>
 
+    <!-- Creating a section to allow selecting type of aircraft -->
+    <!-- <div class="select-ways-create-aircraft-container">
+        <h3>Design Your Aircraft Options</h3>
+        <select name="select-ways-aircraft" id="select-ways-aircraft">
+            <option value="conventional">Conventional Aircraft</option>
+            <option value="customizable">Customizable Aircraft</option>
+        </select>
+    </div> -->
 
-    <!-- Creating the body to create news -->
-    <div class="create-your-aircraft">
-        <h3 class = "create-header">Create an aircraft</h3>
+    <!-- Creating the conventional aircraft -->
+    <!-- <div class="create-your-aircraft">
 
-        <div id= "created-aircraft-container">
-            <div class="aircraft-name-container">
-                <label for="aircraft-name">Aircraft Name(*):</label>
-                <input type="text" id="aircraft-name" name= "aircraft-name" required><br>
-            </div>
-
-            <div class="aircraft-planform">
-
-                <!-- Wing Properties -->
-                <div class="wing-planform-header-container">
-                    <h4 id="wing-planform-header">Aircraft Wing Properties</h4>
-                </div>
-
-                <div id="wing-planform-properties-container">
-                    <form id="wing-planform-properties-form">
-                        <div id="wing-span-container">
-                            <label for="wing-span">Wing Span:</label>
-                            <input type="number" id="wing-span" name="wing-span">
-                            <label for="wing-span">ft</label>
-                        </div>
-
-                        <div id="root-chord-container">
-                            <label for="wing-root-chord">Root Chord:</label>
-                            <input type="number" id="wing-root-chord" name="wing-root-chord">
-                            <label for="wing-root-chord">ft</label>
-                        </div>
-
-                        <div id="tip-chord-container">
-                            <label for="wing-tip-chord">Tip Chord:</label>
-                            <input type="number" id="wing-tip-chord" name="wing-tip-chord">
-                            <label for="wing-tip-chord">ft</label>
-                        </div>
-
-                        <div id="sweep-leadingEdge-container">
-                            <label for="wing-sweep-leadingEdge">Sweep Leading Edge:</label>
-                            <input type="number" id="wing-sweep-leadingEdge" name="wing-sweep-leadingEdge">
-                            <label for="wing-sweep-leadingEdge">&#176</label>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Horizontal Tail Properties -->
-                <div class="horizontal-tail-planform-header-container">
-                    <h4 id="horizontal-tail-planform-header">Horizontal Tail Properties</h4>
-                </div>
-
-                <div id="horizontal-tail-planform-properties-container">
-                    <form id="horizontal-tail-planform-properties-form">
-                        <div id="horizontal-tail-span-container">
-                            <label for="horizontal-tail-span">Horizontal Tail Span: </label>
-                            <input type="number" id="horizontal-tail-span" name="horizontal-tail-span">
-                            <label for="horizontal-tail-span">ft</label>
-                        </div>
-
-                        <div id="horizontal-tail-root-chord-container">
-                            <label for="horizontal-tail-root-chord">Root Chord: </label>
-                            <input type="number" id="horizontal-tail-root-chord" name="horizontal-tail-root-chord">
-                            <label for="horizontal-tail-root-chord">ft</label>
-                        </div>
-
-                        <div id="horizontal-tail-tip-chord-container">
-                            <label for="horizontal-tail-tip-chord">Tip Chord: </label>
-                            <input type="number" id="horizontal-tail-tip-chord" name="horizontal-tail-tip-chord">
-                            <label for="horizontal-tail-tip-chord">ft</label>
-                        </div>
-
-                        <div id="horizontal-tail-sweep-leadingEdge-container">
-                            <label for="horizontal-tail-sweep-leadingEdge">Sweep Leading Edge: </label>
-                            <input type="number" id="horizontal-tail-sweep-leadingEdge" name="horizontal-tail-sweep-leadingEdge">
-                            <label for="horizontal-tail-sweep-leadingEdge">&#176</label>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Vertical Tail Properties -->
-                <div class="vertical-tail-planform-header-container">
-                    <h4 id="vertical-tail-planform-header">Vertical Tail Properties</h4>
-                </div>
-
-                <div id="vertical-tail-planform-properties-container">
-                    <form id="vertical-tail-planform-properties-form">
-                        <div id="vertical-tail-span-container">
-                            <label for="vertical-tail-span">Horizontal Tail Span: </label>
-                            <input type="number" id="vertical-tail-span" name="vertical-tail-span">
-                            <label for="vertical-tail-span">ft</label>
-                        </div>
-
-                        <div id="vertical-tail-root-chord-container">
-                            <label for="vertical-tail-root-chord">Root Chord: </label>
-                            <input type="number" id="vertical-tail-root-chord" name="vertical-tail-root-chord">
-                            <label for="vertical-tail-root-chord">ft</label>
-                        </div>
-
-                        <div id="vertical-tail-tip-chord-container">
-                            <label for="vertical-tail-tip-chord">Tip Chord: </label>
-                            <input type="number" id="vertical-tail-tip-chord" name="vertical-tail-tip-chord">
-                            <label for="vertical-tail-tip-chord">ft </label>
-                        </div>
-
-                        <div id="vertical-tail-sweep-leadingEdge-container">
-                            <label for="vertical-tail-sweep-leadingEdge">Sweep Leading Edge: </label>
-                            <input type="number" id="vertical-tail-sweep-leadingEdge" name="vertical-tail-sweep-leadingEdge">
-                            <label for="vertical-tail-sweep-leadingEdge">&#176</label>
-                        </div>
-                        
-                    </form>
-                </div>
-
-                <!-- fuselage Planform -->
-                <div class="fuselage-header-container">
-                    <h4 id="fuselage-header">Fuselage Properties</h4>
-                </div>
-
-                <div id="fuselage-properties-container">
-                    <form id="fuselage-properties-form">
-                        <div id="fuselage-wetted-area-container">
-                            <label for="fuselage-wetted-area">Fuselage Wetted Area: </label>
-                            <input  type="number" id="fuselage-wetted-area" name="fuselage-wetted-area">
-                            <label for="fuselage-wetted-area">Squared ft</label>
-                        </div>
-
-                        <div id="fuselage-volume-container">
-                            <label for="fuselage-volume">Fuselage Volume: </label>
-                            <input type="number" id="fuselage-volume" name="fuselage-volume">
-                            <label for="fuselage-volume">Cubic ft</label>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
+        <h3 class = "create-header">Create a conventional aircraft</h3>
+     
+        <!-- <div class="submit-button">
+            <button id='submit'>Submit</button>
         </div>
 
+    </div> --> 
+
+    <!-- Creating the customized aircraft -->
+    <div class="create-your-custom-aircraft">
+
+        <div class="selected-added-user-aircraft-container">
+
+            <div class="selected-user-aircraft-container">
+                <label for="selected-created-user-aircraft">Select User Aircraft</label>
+                <select name="selected-created-user-aircraft" id="selected-created-user-aircraft">
+                    
+                </select>
+            </div>
+            
+            <button id="add-user-aircraft-button">
+                <i class="fas fa-plus-square"></i>
+            </button>
+
+        </div>
+
+        <div  hidden = "true" class = "create-new-customized-user-aircraft-container">
+
+            <div  hidden = "true" class ="create-new-customized-user-aircraft-form-container">
+                <form id="create-new-customized-user-aircraft-form">
+                    <label for="new-customized-user-aircraft-input">New User Aircraft Name:</label>
+                    <input type="text" name="new-customized-user-aircraft-input" id="new-customized-user-aircraft-input">
+                </form>
+            </div>
+            
+            <button hidden = "true"  id="add-new-user-aircraft-submit-button">
+                <i class= "fas fa-upload"></i>
+            </button>
+
+        </div>
+
+        <!-- Adding Aircraft Planform Element -->
+        <div class="customized-aircraft-planform-elements-container">
+            
+            <div class="customized-aircraft-planform-elements-toolbar-container">
+
+                <div class="customized-aircraft-planform-elements-toolbar-header-container">
+                    <p id= "customized-aircraft-planform-elements-toolbar-header">Planform Element</p>
+                </div>
+
+                <div class="select-user-aircraft-planforms-container">
+
+                    <div>
+                        <select name="select-user-aircraft-planforms" id="select-user-aircraft-planforms">
+                        </select>
+                    </div>
+                
+
+                    <div class="add-toolbar-container">
+                        <button class="add-toolbar-button">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+
+                </div>
+                
+                <div class="view-remove-edit-add-toolbar-container">
+                    
+                    <div class="remove-toolbar-container">
+                        <button hidden class="remove-toolbar-button">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+
+                    <div class="edit-toolbar-container">
+                        <button hidden class="edit-toolbar-button">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="customized-aircraft-planforms-display-container">
+
+                <div hidden class="select-aircraft-planform-types-container">
+                    <select disabled name="select-aircraft-planform-types" class="select-aircraft-planform-types">
+                        <option value="Straight-Tapered">Straight Tapered</option>
+                        <option value="Double-Tapered">Double Tapered</option>
+                    </select>
+                </div>
+
+                <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Single Planform Data Display ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                <div hidden class="straight-tapered-planform-display-container">
+                    <form id="straight-tapered-planform-properties-form">
+                        <div id="straight-tapered-span-container">
+                            <label for="straight-tapered-span">S:</label>
+                            <input disabled type="number" id="straight-tapered-span" name="straight-tapered-span">
+                            <label for="straight-tapered-span">ft</label>
+                        </div>
         
-        <div class="submit-button">
-            <button id='submit'>Submit</button>
+                        <div id="straight-tapered-root-chord-container">
+                            <label for="straight-tapered-root-chord">C<sub>r</sub></label>
+                            <input disabled type="number" id="straight-tapered-root-chord" name="straight-tapered-root-chord">
+                            <label for="straight-tapered-root-chord">ft</label>
+                        </div>
+        
+                        <div id="straight-tapered-tip-chord-container">
+                            <label for="straight-tapered-tip-chord">C<sub>t</sub></label>
+                            <input  disabled type="number" id="straight-tapered-tip-chord" name="straight-tapered-tip-chord">
+                            <label for="straight-tapered-tip-chord">ft</label>
+                        </div>
+        
+                        <div id="straight-tapered-sweep-leadingEdge-container">
+                            <label for="straight-tapered-sweep-leadingEdge">&#8896<sub>LE</sub>:</label>
+                            <input disabled type="number" id="straight-tapered-sweep-leadingEdge" name="straight-tapered-sweep-leadingEdge">
+                            <label for="straight-tapered-sweep-leadingEdge">&#176</label>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Double Planform Data Display ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                <div class="double-tapered-planform-display-container">
+
+                    <form  id= "double-tapered-planform-properties-form">
+    
+                        <div class="span-planform-two-inboard-panels-container">
+                            <label for="span-planform-two-inboard-panels">b<sub>i</sub>:</label>
+                            <input disabled type="number" name="span-planform-two-inboard-panels" id="span-planform-two-inboard-panels">
+                            <label for="span-planform-two-inboard-planels">ft</label>
+                        </div>
+    
+                        <div class="span-planform-two-outboard-panels-container">
+                            <label for="span-planform-two-outboard-panels">b<sub>o</sub>:</label>
+                            <input disabled type="number" name="span-planform-two-outboard-panels" id="span-planform-two-outboard-panels">
+                            <label for="span-planform-two-outboard-panels">ft</label>
+                        </div>
+    
+                        <div class="chord-at-break-span-station-container">
+                            <label for="chord-at-break-span-station">c<sub>B</sub>:</label>
+                            <input disabled type="number" name="chord-at-break-span-station" id="chord-at-break-span-station">
+                            <label for="chord-at-break-span-station">ft</label>
+                        </div>
+    
+                        <div class="double-root-chord-container">
+                            <label for="double-root-chord">C<sub>r</sub>:</label>
+                            <input disabled type="number" name="double-root-chord" id="double-root-chord">
+                            <label for="double-root-chord">ft</label>
+                        </div>
+    
+                        <div class="double-tip-chord-container">
+                            <label for="double-tip-chord">C<sub>t</sub>:</label>
+                            <input disabled type="number" name="double-tip-chord" id="double-tip-chord">
+                            <label for="double-tip-chord">ft</label>
+                        </div>
+    
+                        <div class="double-sweepLeadingEdge-inboard-container">
+                            <label for="double-sweepLeadingEdge-inboard">&#8896<sub>LE<sub>i</sub></sub>:</label>
+                            <input disabled type="number" name="double-sweepLeadingEdge-inboard" id="double-sweepLeadingEdge-inboard">
+                            <label for="double-sweepLeadingEdge-inboard">&deg;</label>
+                        </div>
+    
+                        <div class="double-sweepLeadingEdge-outboard-container">
+                            <label for="double-sweepLeadingEdge-outboard">&#8896<sub>LE<sub>o</sub></sub>:</label>
+                            <input disabled type="number" name="double-sweepLeadingEdge-outboard" id="double-sweepLeadingEdge-outboard">
+                            <label for="double-sweepLeadingEdge-outboard">&deg;</label>
+                        </div>
+    
+                    </form>
+                </div>
+
+            </div>
+            
+        </div>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Adding Fuselage Aircraft  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <div class="customized-aircraft-fuselage-container">
+
+            <div class="customized-aircraft-fuselage-toolbar-container">
+
+                <div class="customized-aircraft-fuselage-toolbar-header-container">
+                    <p id= "customized-aircraft-fuselage-toolbar-header">Fuselage</p>
+                </div>
+
+                <div class="select-user-fuselage-container">
+
+                    <div>
+                        <select name="select-user-fuselages" id="select-user-fuselages">
+                        </select>
+                    </div>
+                
+                    <div class="add-toolbar-container">
+                        <button class="add-toolbar-button">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+
+                </div>
+                
+                <div class="view-remove-edit-add-toolbar-container">
+                    <div class="remove-toolbar-container">
+                        <button  class="remove-toolbar-button">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+
+                    <div class="edit-toolbar-container">
+                        <button  class="edit-toolbar-button">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="customized-aircraft-fuselage-display-container">
+
+                <div  class="fuselages-display-container">
+
+                    <form id="fuselages-properties-form">
+                        <div id="fuselages-wettedArea-container">
+                            <label for="fuselages-wettedArea">S<sub>wetted</sub>:</label>
+                            <input disabled type="number" id="fuselages-wettedArea" name="fuselages-wettedArea">
+                            <label for="fuselages-wettedArea">ft<sup>2</sup></label>
+                        </div>
+        
+                        <div id="fuselages-volume-container">
+                            <label for="fuselages-volume">V:</label>
+                            <input disabled type="number" id="fuselages-volume" name="fuselages-volume">
+                            <label for="fuselages-volume">ft<sup>3</sup></label>
+                        </div>
+        
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+
+    <!-- Modal Popup  -->
+    <!-- Creating the modal popup for aircraft planforms -->
+    <div class="add-edit-aircraft-modal-container">
+        
+        <div class="add-edit-modal-content">
+            <div class="modal-header">
+                <p>Element Creation</p>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+
+                <!-- Select For Different Type of Planforms -->
+                <div class="select-aircraft-planform-types-container">
+                    <label for="select-aircraft-planform-types">Planform:</label>
+                    <select name="select-aircraft-planform-types" class="select-aircraft-planform-types">
+                        <option value="Straight-Tapered">Straight Tapered</option>
+                        <option value="Double-Tapered">Double Tapered</option>
+                    </select>
+                </div>
+
+                <!-- ~~~~~~~~~~~~~~~~~~~~~~~ Form input for single planform properties ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                <form hidden id="aircraft-planform-properties-input-form">
+
+                    <div class="planform-name-input-container">
+                        <label for="planform-name-input">Name:</label>
+                        <input type="text" name="planform-name-input" class="planform-name-input" required>
+                    </div>
+            
+                    <div class="planform-span-input-container">
+                        <label for="planform-span-input">b:</label>
+                        <input type="number" name="planform-span-input" class="planform-span-input" >
+                        <label for="planform-span-input">ft</label>
+                    </div>
+            
+                    <div class="planform-rootChord-input-container">
+                        <label for="planform-rootChord-input">C<sub>r</sub>:</label>
+                        <input type="number" name="planform-rootChord-input" class="planform-rootChord-input" >
+                        <label for="planform-rootChord-input">ft</label>
+                    </div>
+            
+                    <div class="planform-tipChord-input-container">
+                        <label for="planform-tipChord-input">C<sub>t</sub>:</label>
+                        <input type="number" name="planform-tipChord-input" class="planform-tipChord-input" >
+                        <label for="planform-tipChord-input">ft</label>
+                    </div>
+            
+                    <div class="planform-sweepLeadingEdge-input-container">
+                        <label for="planform-sweepLeadingEdge-input">&#8896<sub>LE</sub>:</label>
+                        <input type="number" name="planform-sweepLeadingEdge-input" class="planform-sweepLeadingEdge-input" >
+                        <label for="planform-sweepLeadingEdge-input">&deg;</label>
+                    </div>
+            
+                </form>
+
+                <!-- ~~~~~~~~~~~~~~~~~~~ Form input for double planform properties ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                <form  id= "aircraft-double-planform-properties-input-form">
+
+                    <div class="planform-name-input-container">
+                        <label for="planform-name-input">Name:</label>
+                        <input type="text" name="planform-name-input" class="planform-name-input" required>
+                    </div>
+
+                    <div class="span-planform-two-inboard-panels-container">
+                        <label for="span-planform-two-inboard-planels-input">b<sub>i</sub>:</label>
+                        <input type="number" name="span-planform-two-inboard-planels-input" id="span-planform-two-inboard-panels-input">
+                        <label for="span-planform-two-inboard-planels-input">ft</label>
+                    </div>
+
+                    <div class="span-planform-two-outboard-panels-container">
+                        <label for="span-planform-two-outboard-panels-input">b<sub>o</sub>:</label>
+                        <input type="number" name="span-planform-two-outboard-panels-input" id="span-planform-two-outboard-panels-input">
+                        <label for="span-planform-two-outboard-panels-input">ft</label>
+                    </div>
+
+                    <div class="chord-at-break-span-station-container">
+                        <label for="chord-at-break-span-station-input">c<sub>B</sub>:</label>
+                        <input type="number" name="chord-at-break-span-station-input" id="chord-at-break-span-station-input">
+                        <label for="chord-at-break-span-station-input">ft</label>
+                    </div>
+
+                    <div class="double-root-chord-container">
+                        <label for="double-root-chord-input">C<sub>r</sub>:</label>
+                        <input type="number" name="double-root-chord-input" id="double-root-chord-input">
+                        <label for="double-root-chord-input">ft</label>
+                    </div>
+
+                    <div class="double-tip-chord-container">
+                        <label for="double-tip-chord-input">C<sub>t</sub>:</label>
+                        <input type="number" name="double-tip-chord-input" id="double-tip-chord-input">
+                        <label for="double-tip-chord-input">ft</label>
+                    </div>
+
+                    <div class="double-sweepLeadingEdge-inboard-container">
+                        <label for="double-sweepLeadingEdge-inboard-input">&#8896<sub>LE<sub>i</sub></sub>:</label>
+                        <input type="number" name="double-sweepLeadingEdge-inboard-input" id="double-sweepLeadingEdge-inboard-input">
+                        <label for="double-sweepLeadingEdge-inboard-input">&deg;</label>
+                    </div>
+
+                    <div class="double-sweepLeadingEdge-outboard-container">
+                        <label for="double-sweepLeadingEdge-outboard-input">&#8896<sub>LE<sub>o</sub></sub>:</label>
+                        <input type="number" name="double-sweepLeadingEdge-outboard-input" id="double-sweepLeadingEdge-outboard-input">
+                        <label for="double-sweepLeadingEdge-outboard-input">&deg;</label>
+                    </div>
+
+                </form>
+
+
+                <!-- ~~~~~~~~~~~~~~~~~~~~ Form input for fuselage properties ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                <form hidden id="aircraft-fuselage-properties-input-form">
+
+                    <div class="fuselage-name-input-container">
+                        <label for="fuselage-name-input">Name:</label>
+                        <input type="text" name="fuselage-name-input" class="fuselage-name-input" required>
+                    </div>
+            
+                    <div class="fuselage-wettedArea-input-container">
+                        <label for="fuselage-wettedArea-input">S<sub>wetted</sub>:</label>
+                        <input type="number" name="fuselage-wettedArea-input" class="fuselage-wettedArea-input" >
+                        <label for="fuselage-wettedArea-input">ft<sup>2</sup></label>
+                    </div>
+            
+                    <div class="fuselage-volume-input-container">
+                        <label for="fuselage-volume-input">V:</label>
+                        <input type="number" name="fuselage-volume-input" class="fuselage-volume-input" >
+                        <label for="fuselage-volume-input">ft<sup>3</sup></label>
+                    </div>
+            
+                </form>
+
+                
+
+            </div>
+            <div class="modal-footer">
+
+                <button hidden class="add-new-planform-button">
+                    <p>Add</p>
+                </button>
+
+                <button hidden class="add-new-fuselage-button">
+                    <p>Add</p>
+                </button>
+            
+                <button class = "cancel-new-planform-button">
+                    <p>Cancel</p>
+                </button>
+            </div>
         </div>
     </div>
 
+
+    <!-- ~~~~~~~~~~~~~~~~~~~ Modal Popup to certify deleting element ~~~~~~~~~~~~~~~~~~~ -->
+    <!-- Creating the random modal popup for aircraft -->
+    <%- include('../partials/confirm_modal.ejs') %>
+    
 
     <!-- Firebase SDK script and main.js script -->
     <%- include('../partials/firebase.ejs') %>
     <script src="model/aircraft_model.js"></script>
     <script src="scripts/logIn.js"></script>
-    <script src="scripts/add_data/create_aircraft.js"></script>
+    <!-- <script src="scripts/add_data/create_aircraft.js"></script> -->
+    <script src="scripts/add_data/customized_aircraft/create_customized_aircraft_name.js"></script>
+    <script src="scripts/add_data/customized_aircraft/create_edit_remove_customized_aircraft_planform.js"></script>
+
 
 </body>
 </html>

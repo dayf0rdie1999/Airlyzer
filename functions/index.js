@@ -26,10 +26,13 @@ app.get('/edit-new/:id', (id,res) => {
     res.render('edit/edit-new')
 })
 
-
 // Response when listen to /news/:id
 app.get('/news/:id', (req,res) => {
     res.render('detail/news_detail')
+});
+
+app.get('/user-info/:id', (req,res) => {
+    res.render("user/user_info.ejs")
 });
 
 // Response when listen to create-news
@@ -60,14 +63,15 @@ app.get('/signIn', (req,res) => {
     res.render('auth/signIn.ejs');
 })
 
-app.get('/determine-derivatives', (req,res) => {
+app.get('/determine-conventional-straight-tapered-planform', (req,res) => {
     res.render('products/Aircraft/cal-con-stra-tapered-plan.ejs');
 });
-
 
 app.get('/', (req,res) => {
     res.render('index.ejs');
 });
+
+
 
 
 exports.app = functions.https.onRequest(app);

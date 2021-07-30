@@ -1,0 +1,51 @@
+.users-aircraft-name-and-aircraft-planform-container{
+    padding: 16px 16px;
+}
+
+.select-users-aircraft-name-container {
+    display: flex;
+    align-items:baseline;
+    justify-content: center;
+}
+
+.select-users-aircraft-container,.users-aircraft-name-header-container {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+/* Formating Required Input Section */
+.select-and-existed-aircraft-planform{
+    margin: 16px 0;
+    background-color: rgb(243, 237, 237);
+}
+
+.select-aircraft-planform-element,.select-aircraft-planform-type-container {
+    padding: 8px 16px;
+}
+
+.existed-planform-parameter-container div {
+    padding: 8px 16px;
+}
+
+/* Formating the Calculated Planform Parameters */
+.calculate-aircraft-planform {
+    background-color: lightskyblue;
+}
+
+.new-aircraft-planform-parameter-container div {
+    padding: 8px 16px;
+}
+
+/* Formatting The buttons */
+
+.update-reset-button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#update-aircraft-planform,#reset-aircraft-planform,#calculate-aircraft-planform{
+    margin: 8px 8px;
+    padding: 16px 32px;
+    border-radius: 8px;
+    color: white;
+}

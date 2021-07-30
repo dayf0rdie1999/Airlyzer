@@ -23,11 +23,18 @@
         </div>
         
     </div>
+
+    <!-- Firebase SDK script and main.js script -->
+    <%- include('../partials/firebase.ejs') %>
+    <script src="scripts/logIn.js"></script>
     
     <script>
+
+        let firebaseFirestore = firebase.firestore();
+
         function saveNews() {
             // Add a new message entry to the database
-            return firebase.firestore().collection('updates') .add({
+            return firebaseFirestore.collection('updates') .add({
                 name: firebase.auth().currentUser.displayName,
                 updateLink: document.getElementById('update-link').value,
                 updateContent: document.getElementById('updates-body').value,
@@ -43,9 +50,7 @@
         }
     </script>
 
-    <!-- Firebase SDK script and main.js script -->
-    <%- include('../partials/firebase.ejs') %>
-    <script src="scripts/logIn.js"></script>
+    
     
 </body>
 </html>

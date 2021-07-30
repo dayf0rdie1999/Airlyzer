@@ -40,14 +40,18 @@
             <button id='submit' onclick="saveNews()">Submit</button>
         </div>
     </div>
+
+    <!-- Firebase SDK script and main.js script -->
+    <%- include('../partials/firebase.ejs') %>
+    <script src="scripts/logIn.js"></script>
+        
     
     <script>
-        // Access to the element
-        let newsImgCapture = document.getElementById('newsImgCapture')
-
+        
         let img_file = null;
-        // AddEvent when there is changes
-        newsImgCapture.addEventListener('change',onMediaFileSelected)
+
+        let firebaseStorage = firebase.storage();
+        let firebaseStore = firebase.firestore();
 
         // Function to receive the event and checking if it is an image
         function onMediaFileSelected(event) {
@@ -78,11 +82,11 @@
             // Save the image to the storage with the id
             let filePath = firebase.auth().currentUser.uid + '/' + img_file.name;
 
-            return firebase.storage().ref(filePath).put(img_file).then(fileSnapshot => {
+            return firebaseStorage.ref(filePath).put(img_file).then(fileSnapshot => {
                 return fileSnapshot.ref.getDownloadURL().then((url) => {
 
                     // Add a new message entry to the database
-                    return firebase.firestore().collection('news').add({
+                    return firebaseStore.collection('news').add({
 
                         name: firebase.auth().currentUser.displayName,
                         title: document.getElementById('title').value,
@@ -103,11 +107,14 @@
                 })
             }) 
         }
+
+        // Access to the element
+        let newsImgCapture = document.getElementById('newsImgCapture');
+        // AddEvent when there is changes
+        newsImgCapture.addEventListener('change',onMediaFileSelected)
     </script>
 
-    <!-- Firebase SDK script and main.js script -->
-    <%- include('../partials/firebase.ejs') %>
-    <script src="scripts/logIn.js"></script>
+    
     
 </body>
 </html>

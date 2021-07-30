@@ -206,7 +206,7 @@ const displayUpdates = (id,update_link,update_content,timestamp) => {
 
 }
 
-// DeleteNews
+// DeleteUpdates
 const deleteUpdate = (id) => {
     const div = document.getElementById(id);
     if (div) {

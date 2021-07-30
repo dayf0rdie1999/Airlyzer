@@ -1,20 +1,267 @@
 <%- include('../../partials/html-declared.ejs') %>
+<link rel="stylesheet" href="../styles/products/cal_planform_parameters_styles.css">
 <body>
     <%- include('../../partials/header.ejs') %>
 
     <%- include('../../partials/nav.ejs') %>
 
-    <%- include('../../partials/comment.ejs') %>
+    <div class="users-aircraft-name-and-aircraft-planform-container">
+
+        <div class="select-users-aircraft-name-container">
+            <div class= "users-aircraft-name-header-container">
+                <h3 id="user-aircraft-name-header">Select Your Aircrafts</h3>
+            </div>
+            
+            <div class="select-users-aircraft-container">
+                <select name="select-user-aircraft" id="select-user-aircraft">
+                </select>
+            </div>  
+        </div>
+
+        <div class="aircraft-planform-container">
+
+            <div class="select-and-existed-aircraft-planform">
+                <div class="aircraft-planform-header-container">
+                    <h3 class="aircraft-planform-header">Required Input</h3>
+                </div>
+    
+                <div class="select-aircraft-planform-element">
+                    <label for="aircraft-planform-element">Planform Element:</label>
+                    <select name="aircraft-planform-element" id="aircraft-planform-element">
+                    </select>
+                </div>
+
+                <div class="select-aircraft-planform-type-container">
+                    <label for="aircraft-planform-type">Planform Type:</label>
+                    <select disabled name="aircraft-planform-type" id="aircraft-planform-type">
+                        <option value="Straight-Tapered">Straight Tapered</option>
+                        <option value="Double-Tapered">Double Tapered</option>
+                    </select>
+                </div>
+                
+                <div class="existed-planform-parameter-container">
+
+                    <form class="existed-planform-parameter-form">
+                        <div class="span-input-container">
+                            <label for="span-input" id="span-input-label">b:</label>
+                            <input type="number" id="span-input" name="span-input">
+                            <label for="span-input" id="span-input-label">ft</label>
+                        </div>
+
+                        <div class="rootChord-input-container">
+                            <label for="rootChord-input" id="rootChord-input-label">C<sub>r</sub></label>
+                            <input type="number" id="rootChord-input" name="rootChord-input">
+                            <label for="rootChord-input" id="rootChord-input-label">ft</label>
+                        </div>
+
+                        <div class="tipChord-input-container">
+                            <label for="tipChord-input" id="tipChord-input-label">C<sub>t</sub></label>
+                            <input type="number" id="tipChord-input" name="tipChord-input">
+                            <label for="tipChord-input" id="tipChord-input-label">ft</label>
+                        </div>
+
+                        <div class="sweepLeadingEdge-input-container">
+                            <label for="sweepLeadingEdge-input" id="sweepLeadingEdge-input-label">&#8896<sub>LE</sub>:</label>
+                            <input type="number" id="sweepLeadingEdge-input" name="sweepLeadingEdge-input">
+                            <label for="sweepLeadingEdge-input" id="sweepLeadingEdge-input-label">&deg</label>
+                        </div>
+                    </form>
+
+                    <form class="existed-double-planform-parameter-form">
+                        
+                        <div class="spanInboard-input-container">
+                            <label for="spanInboard-input">b<sub>i</sub>:</label>
+                            <input type="number" id="spanInboard-input" name="spanInboard-input">
+                            <label for="spanInboard-input">ft</label>
+                        </div>
+
+                        <div class="spanOutboard-input-container">
+                            <label for="spanOutboard-input">b<sub>o</sub>:</label>
+                            <input type="number" id="spanOutboard-input" name="spanOutboard-input">
+                            <label for="spanOutboard-input">ft</label>
+                        </div>
+
+                        <div class="double-rootChord-input-container">
+                            <label for="double-rootChord-input">C<sub>r</sub>:</label>
+                            <input type="number" id="double-rootChord-input" name="double-rootChord-input">
+                            <label for="double-rootChord-input">ft</label>
+                        </div>
+
+                        <div class="double-tipChord-input-container">
+                            <label for="double-tipChord-input">C<sub>t</sub>:</label>
+                            <input type="number" id="double-tipChord-input" name="double-tipChord-input">
+                            <label for="double-tipChord-input">ft</label>
+                        </div>
+                        
+                        <div class="double-chordAtBreakSpan-input-container">
+                            <label for="double-chordAtBreakSpan-input">C<sub>B</sub>:</label>
+                            <input type="number" id="double-chordAtBreakSpan-input" name="double-chordAtBreakSpan-input">
+                            <label for="double-chordAtBreakSpan-input">ft</label>
+                        </div>
+
+                        <div class="sweepLeadingEdgeInboard-input-container">
+                            <label for="sweepLeadingEdgeInboard-input">&#8896<sub>LE<sub>i</sub></sub>:</label>
+                            <input type="number" id="sweepLeadingEdgeInboard-input" name="sweepLeadingEdgeInboard-input">
+                            <label for="sweepLeadingEdgeInboard-input">&deg;</label>
+                        </div>
+
+                        <div class="sweepLeadingEdgeoutboard-input-container">
+                            <label for="sweepLeadingEdgeoutboard-input">&#8896<sub>LE<sub>o</sub></sub>:</label>
+                            <input type="number" id="sweepLeadingEdgeoutboard-input" name="sweepLeadingEdgeoutboard-input">
+                            <label for="sweepLeadingEdgeoutboard-input">&deg;</label>
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="update-reset-button-container">
+                    <button id="update-aircraft-planform">Save</button>
+                    
+                    <button id="reset-aircraft-planform">Reset</button>
+
+                    <button id="calculate-aircraft-planform">Calculate</button>
+                </div>
+
+            </div>
+
+            
+            <div class="calculate-aircraft-planform">
+
+                <div class="new-aircraft-planform-parameter-header-container">
+                    <h3 id="new-aircraft-planform-parameter-header">Calculated Planform Parameters</h3>
+                </div>
+
+                <div class="new-aircraft-planform-parameter-container">
+
+                    <form class= "new-aircraft-planform-parameter-form">
+
+                        <div class="ratio-of-chordwise-position-container">
+                            <label for="ratio-of-chordwise-position">&sigma;:</label>
+                            <input disabled type="number" name="ratio-of-chordwise-position" id="ratio-of-chordwise-position">
+                        </div>
+
+                        <div class="taper-ratio-container">
+                            <label for="taper-ratio">&lambda;:</label>
+                            <input disabled type="number" name="taper-ratio" id="taper-ratio">
+                        </div>
+                        
+                        <div class="aspect-ratio-container">
+                            <label for="aspect-ratio">A:</label>
+                            <input disabled type="number" name="aspect-ratio" id="aspect-ratio">
+                        </div>
+
+                        <div class="mean-aerodynamic-chord-container">
+                            <label for="mean-aerodynamic-chord">Mean Aerodynamic Chord: </label>
+                            <input disabled type="number" name="mean-aerodynamic-chord" id="mean-aerodynamic-chord">
+                            <label for="mean-aerodynamic-chord">ft</label>
+                        </div>
+
+                        <div class="planform-area-container">
+                            <label for="planform-area">S: </label>
+                            <input disabled type="number" name="planform-area" id="planform-area">
+                            <label for="planform-area">ft<sup>2</sup></label>
+                        </div>
+
+                        <div class="x-centroid-location-container">
+                            <label for="x-centroid-location">X <sub>centroid</sub> </label>
+                            <input disabled type="number" name="x-centroid-location" id="x-centroid-location">
+                            <label for="x-centroid-location">ft </label>
+                        </div>
+
+                        <div class="y-MAC-location-container">
+                            <label for="y-MAC-location">Y <sub>MAC</sub> </label>
+                            <input disabled type="number" name="y-MAC-location" id="y-MAC-location">
+                            <label for="y-MAC-location">ft </label>
+                        </div>
+
+                        <div class="sweep-angle-location-input-container">
+                            <label for="sweep-angle-location-input">&Lambda; 
+                                <sub>
+                                    <select name="select-sweep-angle-location" id="select-sweep-angle-location">
+                                        <option value="0.25">1/4</option>
+                                        <option value="0.5">1/2</option>
+                                    </select>
+                                </sub>
+                            </label>
+                            <input disabled type="number" name="sweep-angle-location-input" id="sweep-angle-location-input">
+                            <label for="sweep-angle-location-input">&deg </label>
+                        </div>
+
+                    </form>
+
+                    <form class= "new-aircraft-double-planform-parameter-form">
+
+                        <div class="double-span-ratio-container">
+                            <label for="double-span-ratio-input">&eta;:</label>
+                            <input disabled type="number" name="double-span-ratio-input" id="double-span-ratio-input">
+                        </div>
+
+                        <div class="double-taper-ratio-container">
+                            <label for="double-taper-ratio-input">&lambda;:</label>
+                            <input disabled type="number" name="double-taper-ratio-input" id="double-taper-ratio-input">
+                        </div>
+
+                        <div class="double-inner-taper-ratio-container">
+                            <label for="double-inner-taper-ratio-input">&lambda;<sub>i</sub>:</label>
+                            <input disabled type="number" name="double-inner-taper-ratio-input" id="double-inner-taper-ratio-input">
+                        </div>
+
+                        <div class="double-outer-taper-ratio-container">
+                            <label for="double-outer-taper-ratio-input">&lambda;<sub>o</sub>:</label>
+                            <input disabled type="number" name="double-outer-taper-ratio-input" id="double-outer-taper-ratio-input">
+                        </div>
+
+                        <div class="double-aspect-ratio-container">
+                            <label for="double-aspect-ratio-input">A:</label>
+                            <input disabled type="number" name="double-aspect-ratio-input" id="double-aspect-ratio-input">
+                        </div>
+
+                        <div class="double-MAC-chord-container">
+                            <label for="double-MAC-chord-input">C<sub>MAC</sub>:</label>
+                            <input disabled type="number" name="double-MAC-chord-input" id="double-MAC-chord-input">
+                            <label for="double-MAC-chord-input">ft</label>
+                        </div>
+
+                        <div class="double-area-container">
+                            <label for="double-area-input">S:</label>
+                            <input disabled type="number" name="double-area-input" id="double-area-input">
+                            <label for="double-area-input">ft<sup>2</sup></label>
+                        </div>
+
+                        <div class="double-X-centroid-container">
+                            <label for="double-X-centroid-input">X<sub>centroid</sub>:</label>
+                            <input disabled type="number" name="double-X-centroid-input" id="double-X-centroid-input">
+                            <label for="double-X-centroid-input">ft</label>
+                        </div>
+
+                        <div class="double-X-centroid-leadingEdge-container">
+                            <label for="double-X-centroid-leadingEdge-input">X<sub>centroid<sub>LE</sub></sub>:</label>
+                            <input disabled type="number" name="double-X-centroid-leadingEdge-input" id="double-X-centroid-leadingEdge-input">
+                            <label for="double-X-centroid-leadingEdge-input">ft</label>
+                        </div>
+
+                        <div class="double-Y-MAC-container">
+                            <label for="double-Y-MAC-input">Y<sub>MAC</sub>:</label>
+                            <input disabled type="number" name="double-Y-MAC-input" id="double-Y-MAC-input">
+                            <label for="double-Y-MAC-input">ft</label>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     
     <%- include('../../partials/footer.ejs') %>
 
     <!-- Firebase SDK script and logIn.js script -->
     <%- include('../../partials/firebase.ejs') %>
+    <script src="../../model/aircraft_model.js"></script>
     <script src="../../scripts/logIn.js"></script>
-
-    <script src= "../../scripts/add_data/add_comment.js"></script>
-    <script src="../../scripts/read_data/read_comment.js"></script>
+    <script src="../../scripts/products/cal_planform_parameters.js"></script>
 
 </body>
 </html>

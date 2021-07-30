@@ -1,9 +1,15 @@
 
 
+
+
+
 // Sign-Out
 const signOut = () => {
     // Sign out of Firebase.
     firebase.auth().signOut();
+
+    // Navigate to home screen all the time
+    window.location.href = "/";
 }
 
 // Initiate Firebase Authentication
@@ -15,11 +21,15 @@ const initFirebaseAuth = () => {
     
 // Getting the user's profile Pic URL
 const getProfilePicUrl = () => {
-    return firebase.auth().currentUser.photoURL || '../testData/img/mario.jpeg';
+    let user =  firebase.auth().currentUser;
+
+    return user.photoURL || null
 }
 // Getting the user display name
 const getUserName = () => {
-    return firebase.auth().currentUser.displayName || 'New User' ;
+    let user = firebase.auth().currentUser;
+
+    return user.displayName || null
 }
 
 // Checking whether the user is signed in or out
@@ -52,7 +62,7 @@ function addSizeToGoogleProfilePic(url) {
       return url + '?sz=150';
     }
     return url;
-  }
+}
 
 // Trigger when the auth state changes
 const authStateObserver = (user) => {
@@ -61,9 +71,16 @@ const authStateObserver = (user) => {
         let userName = getUserName();
 
         // Setting the profile and image to the element
-        userNameElement.textContent = userName;
-        userImgElement.setAttribute('src',`${addSizeToGoogleProfilePic(profilePicURL)}`);
-
+        if (profilePicURL && userName) {
+            userNameElement.textContent = userName;
+            userImgElement.setAttribute('src',`${addSizeToGoogleProfilePic(profilePicURL)}`);
+        } else {
+            firebase.firestore().collection(user.uid).doc('users-info').get()
+                .then((doc) => {
+                    userNameElement.textContent = doc.data().userName;
+                    userImgElement.setAttribute('src',`${doc.data().imagePublicURL}`);
+                })
+        }
         
         // Remove Hidden for Sign In and Sign Up button
         signInLinkElement.setAttribute('hidden','true');
@@ -130,6 +147,10 @@ const signUp = () => {
     console.log("Sign Up Anchor Connected");
 }
 
+const navUserProfilePage = () => {
+    window.location.href = `/user-info/${firebase.auth().currentUser.uid}`
+}
+
 
 // Connect to signIn button
 const signInLinkElement = document.getElementById('signInLink');
@@ -148,5 +169,7 @@ const createYourAircraftAnchor = document.getElementsByClassName('create-your-ai
 
 // Adding an event listener to interact with the button
 signOutButtonElement.addEventListener('click',signOut);
-
 dropDownMenuElement[0].addEventListener('click',showDropDownContent);
+
+// Add event listener to the profile image to navigate to the user profile data
+userImgElement.addEventListener('click',navUserProfilePage)

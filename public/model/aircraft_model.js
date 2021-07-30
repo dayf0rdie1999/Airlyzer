@@ -15,6 +15,7 @@ class Aircraft {
         this.fuselageWettedArea = fuselageWettedArea;
         this.fuselageVolume = fuselageVolume;
     }
+     
 }
 
 // Firestore data converter

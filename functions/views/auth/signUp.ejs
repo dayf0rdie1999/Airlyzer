@@ -16,9 +16,7 @@
 
                     <div class= "userImage-container">
                         <input hidden="true" id="mediaCapture" type="file" accept="image/*" capture="camera">
-                        <button id="submitImage" title="Add an Image">
-                            <i class="fas fa-images"></i>
-                        </button>
+                        <img src="../../../testData/img/placeholder.png" id="submitImage" title="Add an Image">
                     </div>
 
                     <div class="userName-container">
@@ -60,38 +58,66 @@
     <script>
         // Create an image file to store the image
         let img_file = null;
+
+        const dataStore = firebase.firestore();
+        const firebaseStorage = firebase.storage();
+        const reader = new FileReader();
         
 
         // Create user with email and password
         function createUser() {
+
             // getting the two input element
             let email = document.getElementById('email');
             let password = document.getElementById('password');
 
-            // Create User with Firebase Authentication With Email And Password
-            return firebase.auth().createUserWithEmailAndPassword(email.value,password.value)
-            .then((userCredentials)=> {
-                let user = userCredentials.user;
+            if (img_file && userName.value && email.value && password.value) {
+                // Create User with Firebase Authentication With Email And Password
+                return firebase.auth().createUserWithEmailAndPassword(email.value,password.value)
+                    .then((userCredentials)=> {
+
+                        let user = userCredentials.user;
+
+                        let filePath = user.uid + "/" + img_file.name;
+                        
+                        // Adding the image to the storage
+                        return firebaseStorage.ref(filePath).put(img_file).then((snapshot)=> {
+                            return snapshot.ref.getDownloadURL().then((url) => {
+                                return dataStore.collection(user.uid).doc('users-info').set({
+                                    userName: userNameInputElement.value,
+                                    imageFilePath: filePath,
+                                    imagePublicURL: url
+                                }).then(res => {
+                                    document.getElementById('signUp-form').reset();
+                                    window.location.href = '/';
+                                }).catch(err => {
+                                    console.log(err);
+                                })
+                            })
+                        })
+
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            } else { 
+                if (!img_file) {
+                    submitImageButtonElement.setAttribute('style','background-color: red');
+                } 
                 
-                // Create a file path for the image
-                let filePath = user.uid + "/" + img_file.name;
+                if (!userNameInputElement.value){
+                    userNameInputElement.setAttribute("style",'background-color: red');
+                }
 
-                return firebase.firestore().collection(user.uid).doc('user-container').set({
-                    userName: userNameInputElement.value,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                }).then(res => {
-                    console.log(res);
-                }).catch(err => {
-                    console.log(err);
-                });
-                    
-                window.location.href = '/';
+                if(!email.value) {
+                    email.setAttribute("style",'background-color: red');
+                }
 
-            })
-            .catch((err) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-            });
+                if(!password.value) {
+                    password.setAttribute("style",'background-color: red');
+                }
+            }
+            
         }
 
         
@@ -106,7 +132,14 @@
         // Function to get the image file when the file is selected
         function onMediaFileSelected(event) {
             event.preventDefault();
+
             var file = event.target.files[0];
+            
+            reader.onload = event => {
+                submitImageButtonElement.src = event.target.result;
+            }
+
+            reader.readAsDataURL(file);
 
             // Check if the file is an image.
             if (!file.type.match('image.*')) {
@@ -119,6 +152,9 @@
             }
             
             img_file = file;
+
+            // Replace the image with the original
+            
         }
 
         // listening to the Sign Up button

@@ -30,10 +30,17 @@
         </div>
     </div>
 
+    
+    <%- include('../partials/firebase.ejs') %>
+    <script src="scripts/logIn.js"></script>
+
     <script>
         // Connect to the mediaCapture and make it listen to the event
         let mediaCapture = document.getElementById('mediaCapture');
         let add_members = document.getElementById('add-members');
+
+        let firebaseStorage = firebase.storage();
+        let firebaseFirestore = firebase.firestore();
 
         let img_file = null;
 
@@ -69,9 +76,9 @@
             var filePath = firebase.auth().currentUser.uid + "/" + img_file.name;
 
             // Adding the image to the file storage
-            return firebase.storage().ref(filePath).put(img_file).then((fileSnapshot) => {               
+            return firebaseStorage.ref(filePath).put(img_file).then((fileSnapshot) => {               
                 return fileSnapshot.ref.getDownloadURL().then((url) => {
-                    return firebase.firestore().collection('members').add({
+                    return firebaseFirestore.collection('members').add({
                         name: document.getElementById('name').value,
                         info: document.getElementById('info').value,
                         imageUrl: url,
@@ -92,7 +99,5 @@
     </script>
 
     
-    <%- include('../partials/firebase.ejs') %>
-    <script src="scripts/logIn.js"></script>
 </body>
 </html>

@@ -29,8 +29,10 @@
 }
 
 #submitImage {
-    font-size: 64px;
-    border-radius: 8px;
+    width: 128px;
+    height: auto;
+    border-radius: 32px;
+    border: 1px solid black;
 }
 
 #signUp-body-buttons,#signIn-body-buttons{

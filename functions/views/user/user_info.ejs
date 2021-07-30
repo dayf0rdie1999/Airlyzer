@@ -1,0 +1,81 @@
+<%- include('../partials/html-declared.ejs') %>
+<link rel="stylesheet" href="../styles/userInfo_styles.css">
+
+<body>
+    <%- include('../partials/header.ejs') %>
+
+    <%- include('../partials/nav.ejs') %>
+
+    <div class="header-userName-userImage-aircraftInfo-container">
+
+        <div class="userName-userImage-aircraftInfo-container">
+            
+            <h3 id="profile-header">User Information</h3>
+
+
+            <div class="userName-userImage-container">
+
+                <div class="userName-container">
+                    <div>
+                        <form id="userName-input">
+                            <label for="userName">User Name:</label>
+                            <input type="text" id="userName" name="userName">
+                        </form>
+                    </div>
+
+                    <div class="userName-edit-button-container">
+                        <button id="userName-edit-button">
+                            <i class="fas fa-user-edit"></i>
+                        </button>
+                    </div>
+                </div>
+    
+                <div class="userImage-container">
+                    <div>
+                        <label for="profile-userImage"> User Image: </label>
+                    </div>
+                    
+                    <form id="userImage-input">
+                        <input hidden type="file" accept= "image/*" name="userImageCapture" id="userImageCapture">
+                        <img id="profile-userImage" name= "profile-userImage" src="../../../testData/img/placeholder.png">
+                    </form>
+                </div>
+
+            </div>
+    
+            <div class="aircraftInfo-container">
+
+                <div class="aircraft-select-edit-button-container">
+
+                    <div class = "aircraft-select-container">
+                        <label for="select-options-aircrafts">Select Your Aircraft: </label>
+                        <select name="select-options-aircrafts" id="select-options-aircrafts">
+                        </select>
+                    </div>
+
+                    <div hidden class="edit-button-container">
+                        <button id="aircrafts-edit-button">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                    
+                </div>
+                
+                
+                <div hidden class="selected-aircraft-container">
+                    <%- include('../partials/aircraft_input_element.ejs') %>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <%- include('../partials/footer.ejs') %>
+    <%- include('../partials/firebase.ejs') %>
+
+    <script src="../scripts/logIn.js"></script>
+    
+    <script src="../scripts/read_data/userProfile_read.js"></script>
+
+</body>
+</html>
